@@ -1,0 +1,8 @@
+<resources>
+    <style name="TypeUpTheme" parent="TypeUpThemeDark"/>
+
+    <style name="Dialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="colorAccent">@color/normalTextColor</item>
+    </style>
+
+</resources>
