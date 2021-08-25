@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- LIGHT MODE -->
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="normalBgColor">#FFFFFF</color>
+    <color name="normalTextColor">#000000</color>
+    <color name="normalTextColorMiddle">#78000000</color>
+    <color name="normalTextColorSmall">#3C000000</color>
+</resources>
