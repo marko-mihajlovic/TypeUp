@@ -10,7 +10,7 @@ import com.typeup.model.AppInfo
 /**
  *  Returns all installed apps using PackageManager
  */
-object AppsDataSource {
+object InstalledAppsDataSource {
 
     public fun get(context: Context): List<AppInfo> {
         return getInstalledApps(context).map { x ->
