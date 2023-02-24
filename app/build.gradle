@@ -11,7 +11,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.typeup.dev"
+        applicationId "com.typeup"
         minSdk 23
         targetSdk 33
         versionCode 6
@@ -25,6 +25,7 @@ android {
 
     buildTypes {
         debug{
+            applicationIdSuffix ".dev"
             minifyEnabled false
         }
 
