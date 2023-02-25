@@ -15,7 +15,17 @@ class FakeInstalledAppsDataSource : InstalledAppsDataSource {
                 packageName = "com.different.app",
                 launcherActivity = "com.package.app.deep.Activity",
                 appName = "App2"
-            )
+            ),
+        ) + listOf("last_abc", "abc", "salty_bacon", "abc_bacon", "bacon", "bob", "abc_johnny", "abc2").map { x ->
+            getSingleAppInfo(x)
+        }
+    }
+
+    private fun getSingleAppInfo(appName: String): AppInfo {
+        return AppInfo(
+            packageName = "com.example.app",
+            launcherActivity = "com.example.app.Activity",
+            appName = appName
         )
     }
 
