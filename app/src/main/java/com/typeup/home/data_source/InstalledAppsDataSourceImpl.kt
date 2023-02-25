@@ -1,4 +1,4 @@
-package com.typeup.home
+package com.typeup.home.data_source
 
 import android.content.Context
 import android.content.Intent
@@ -10,19 +10,21 @@ import com.typeup.model.AppInfo
 /**
  *  Returns all installed apps using PackageManager
  */
-object InstalledAppsDataSource {
+class InstalledAppsDataSourceImpl(
+    private val context: Context
+) : InstalledAppsDataSource {
 
-    public fun get(context: Context): List<AppInfo> {
-        return getInstalledApps(context).map { x ->
+    override fun get(): List<AppInfo> {
+        return getInstalledApps().map { x ->
             AppInfo(
-                packageName =  x.activityInfo.applicationInfo.packageName,
+                packageName = x.activityInfo.applicationInfo.packageName,
                 launcherActivity = x.activityInfo.name,
                 appName = x.loadLabel(context.packageManager).toString()
             )
         }
     }
 
-    private fun getInstalledApps(context: Context): List<ResolveInfo> {
+    private fun getInstalledApps(): List<ResolveInfo> {
         val main = Intent(Intent.ACTION_MAIN, null)
         main.addCategory(Intent.CATEGORY_LAUNCHER)
 
