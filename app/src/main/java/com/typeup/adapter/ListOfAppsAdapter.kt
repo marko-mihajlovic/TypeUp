@@ -1,6 +1,5 @@
 package com.typeup.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +13,9 @@ import javax.inject.Inject
  * @author Marko Mihajlovic - Fybriz
  * @see - Available on Google Play {https://play.google.com/store/apps/details?id=com.typeup}
  */
-class ListOfAppsAdapter @Inject constructor(
-    val context: Context,
-    val inflater : LayoutInflater,
-    var appInfoList : List<AppInfo> = listOf()
+class ListOfAppsAdapter(
+    private val inflater : LayoutInflater,
+    private var appInfoList : List<AppInfo> = listOf()
 ) : BaseAdapter() {
 
 

@@ -5,8 +5,9 @@ import com.typeup.home.repo.InstalledAppsRepo
 import com.typeup.model.AppInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class SearchAppsUseCase(
+class SearchAppsUseCase @Inject constructor(
     private val repo: InstalledAppsRepo,
 ) {
 

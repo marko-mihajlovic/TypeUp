@@ -6,11 +6,12 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Build
 import com.typeup.model.AppInfo
+import javax.inject.Inject
 
 /**
  *  Returns all installed apps using PackageManager
  */
-class InstalledAppsDataSourceImpl(
+class InstalledAppsDataSourceImpl @Inject constructor(
     private val context: Context
 ) : InstalledAppsDataSource {
 

@@ -22,7 +22,7 @@ object ActivityModule {
     fun provideListOfAppsAdapter(
         @ActivityContext context: Context
     ): ListOfAppsAdapter {
-        return ListOfAppsAdapter(context, getInflater(context))
+        return ListOfAppsAdapter(getInflater(context))
     }
 
     @Provides
@@ -31,6 +31,5 @@ object ActivityModule {
     ): SelectedAppActions {
         return SelectedAppActions(context)
     }
-
 
 }

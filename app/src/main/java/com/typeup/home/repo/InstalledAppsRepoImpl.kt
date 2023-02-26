@@ -9,8 +9,9 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
-class InstalledAppsRepoImpl(
+class InstalledAppsRepoImpl @Inject constructor(
     private val context: Context,
     private val dataSource: InstalledAppsDataSource,
 ) : InstalledAppsRepo {
