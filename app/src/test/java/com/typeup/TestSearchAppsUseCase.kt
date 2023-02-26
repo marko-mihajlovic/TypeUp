@@ -14,7 +14,7 @@ class TestSearchAppsUseCase {
 
     @Test
     fun test() = runBlocking {
-        val searchAppsUseCase = SearchAppsUseCase(FakeAppsRepo())
+        val searchAppsUseCase = SearchAppsUseCase(FakeAppsRepo(5))
 
         assertThat(
             searchAppsUseCase("name_of_app_that_does_not_exits").firstOrNull(),

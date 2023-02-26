@@ -17,7 +17,7 @@ object MaxShownItems {
     private const val maxItemsKey = "maxSizeOfItems"
     private const val min = 1
     private const val max = 5
-    private const val default = 3
+    public const val default = 3
 
     fun showDialog(context: Context, mainViewModel: MainViewModel) {
         val dialogView = getInflater(context).inflate(R.layout.number_picker_dialog, null)

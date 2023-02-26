@@ -18,7 +18,7 @@ class HomeViewModel @Inject constructor(
     val uiState: StateFlow<SearchAppsUiState> = _apps
 
     init {
-//        searchApps("")
+        searchApps("")
     }
 
     public fun searchApps(filterText: String) {

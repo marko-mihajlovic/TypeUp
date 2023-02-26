@@ -7,4 +7,6 @@ interface InstalledAppsRepo {
 
     fun get(): Flow<List<AppInfo>>
 
+    fun getMaxSize(): Int
+
 }
