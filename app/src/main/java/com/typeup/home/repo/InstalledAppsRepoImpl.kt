@@ -17,15 +17,22 @@ class InstalledAppsRepoImpl @Inject constructor(
     private val dataSource: InstalledAppsDataSource,
 ) : InstalledAppsRepo {
 
+    private var apps: List<AppInfo> = emptyList()
+
     public override fun get(): Flow<List<AppInfo>> {
         return flow {
+            if (apps.isEmpty()) {
+                val cache = getCachedApps()
+                apps = cache
+                emit(cache)
 
-            emit(getCachedApps())
-
-            val installedApps = dataSource.get()
-            saveCache(installedApps)
-            emit(installedApps)
-
+                val installedApps = dataSource.get()
+                apps = installedApps
+                saveCache(installedApps)
+                emit(installedApps)
+            } else {
+                emit(apps)
+            }
         }
     }
 
