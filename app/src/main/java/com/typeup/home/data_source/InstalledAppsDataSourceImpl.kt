@@ -5,7 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Build
-import com.typeup.model.AppInfo
+import com.typeup.home.model.AppInfo
 import javax.inject.Inject
 
 /**

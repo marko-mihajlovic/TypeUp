@@ -1,7 +1,7 @@
 package com.typeup
 
-import com.typeup.home.HomeViewModel
 import com.typeup.home.SearchAppsUiState
+import com.typeup.home.SearchAppsViewModel
 import com.typeup.home.repo.FakeAppsRepo
 import com.typeup.home.use_case.SearchAppsUseCase
 import com.typeup.rules.MainDispatcherRule
@@ -13,14 +13,14 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class TestHomeViewModel {
+class TestSearchAppsViewModel {
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
     fun test_initial_state() = runTest {
-        val viewModel = HomeViewModel(SearchAppsUseCase(FakeAppsRepo()))
+        val viewModel = SearchAppsViewModel(SearchAppsUseCase(FakeAppsRepo()))
 
         assertThat(
             viewModel.uiState.value,

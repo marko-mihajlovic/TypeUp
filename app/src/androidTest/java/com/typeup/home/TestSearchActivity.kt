@@ -10,7 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.typeup.R
-import com.typeup.ui.options.MaxShownItems
+import com.typeup.options.MaxShownItems
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.*
@@ -20,10 +20,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class TestHomeActivity {
+class TestSearchActivity {
 
     @get:Rule
-    val activityRule = ActivityScenarioRule(HomeActivity::class.java)
+    val activityRule = ActivityScenarioRule(SearchActivity::class.java)
 
     @Test
     fun test() {

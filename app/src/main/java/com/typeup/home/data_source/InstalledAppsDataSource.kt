@@ -1,6 +1,6 @@
 package com.typeup.home.data_source
 
-import com.typeup.model.AppInfo
+import com.typeup.home.model.AppInfo
 
 interface InstalledAppsDataSource {
 

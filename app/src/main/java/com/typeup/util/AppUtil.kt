@@ -13,29 +13,30 @@ import androidx.appcompat.app.AppCompatActivity
 import com.typeup.BuildConfig
 import com.typeup.R
 
-/**
- * @author Marko Mihajlovic aka Fybriz
- * @see - Available on Google Play {https://play.google.com/store/apps/details?id=com.typeup}
- */
 const val GP_URL = "https://play.google.com/store/apps/details?id="
 
 /** Keyboard **/
-fun toggleKeyboard(activity: Activity, view : EditText?, visible : Boolean){
-    if(visible){
-        view?.post{
+fun toggleKeyboard(activity: Activity, view: EditText?, visible: Boolean) {
+    if (visible) {
+        view?.post {
             view.requestFocus()
-            val inputMethodManager = activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
         }
-    }else{
-        val imm = activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(activity.window.decorView.windowToken, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    } else {
+        val imm =
+            activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(
+            activity.window.decorView.windowToken,
+            InputMethodManager.HIDE_IMPLICIT_ONLY
+        )
         view?.text?.clear()
     }
 }
 
 /** Share app link */
-fun shareTypeUpLink(context: Context){
+fun shareTypeUpLink(context: Context) {
     val txt = "Minimalistic App Search Tool: " + GP_URL + BuildConfig.APPLICATION_ID
 
     val sendIntent = Intent().apply {
@@ -56,7 +57,7 @@ fun openUrl(context: Context, url: String?) {
 }
 
 /** Open intent **/
-fun openIntent(context: Context, intent: Intent){
+fun openIntent(context: Context, intent: Intent) {
     try {
         context.startActivity(intent)
     } catch (e: ActivityNotFoundException) {
@@ -64,13 +65,13 @@ fun openIntent(context: Context, intent: Intent){
         showToast(context, context.getString(R.string.unableToOpen))
     } catch (e: IllegalArgumentException) {
         e.printStackTrace()
-        showToast(context,  context.getString(R.string.unableToOpen))
+        showToast(context, context.getString(R.string.unableToOpen))
     }
 }
 
 /** Show UI msg **/
-fun showToast(context: Context, message: String, duration: Int = Toast.LENGTH_SHORT){
-    Toast.makeText(context, message , duration).show()
+fun showToast(context: Context, message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(context, message, duration).show()
 }
 
 /** Inflater */

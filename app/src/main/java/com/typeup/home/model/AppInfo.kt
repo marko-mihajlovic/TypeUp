@@ -1,9 +1,9 @@
-package com.typeup.model
+package com.typeup.home.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AppInfo (
+data class AppInfo(
     val packageName: String,
     val launcherActivity: String,
     val appName: String,

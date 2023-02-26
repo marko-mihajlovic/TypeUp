@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     android:orientation="vertical"
-    android:background="@color/normalBgColor"
-    >
+    android:background="@color/normalBgColor">
 
     <ImageView
         android:id="@+id/optionsBtn"
@@ -18,8 +16,7 @@
         android:layout_margin="8dp"
         android:contentDescription="@string/menu"
 
-        android:background="?attr/selectableItemBackgroundBorderless"
-        />
+        android:background="?attr/selectableItemBackgroundBorderless" />
 
     <EditText
         android:id="@+id/searchInput"
@@ -36,8 +33,7 @@
         android:importantForAutofill="no"
         android:inputType="text"
 
-        android:backgroundTint="@color/normalTextColorSmall"
-        />
+        android:backgroundTint="@color/normalTextColorSmall" />
 
     <TextView
         android:id="@+id/msgTxt"
@@ -46,8 +42,7 @@
         android:textColor="@color/normalTextColorMiddle"
         android:gravity="center"
         android:padding="16dp"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/listView"
@@ -59,7 +54,6 @@
         android:tag="listview"
 
         android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"
-        />
+        android:scrollbarStyle="outsideOverlay" />
 
 </LinearLayout>

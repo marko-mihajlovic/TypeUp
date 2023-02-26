@@ -1,4 +1,4 @@
-package com.typeup.ui.options
+package com.typeup.options
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
@@ -6,19 +6,16 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.typeup.R
 import com.typeup.util.getSharedPref
 
-/**
- * @author Marko Mihajlovic aka Fybriz
- * @see - Available on Google Play {https://play.google.com/store/apps/details?id=com.typeup}
- */
 object ThemeSettings {
 
     private const val themeKey = "selectedTheme"
+
     private enum class Theme(val positionInList: Int) {
         LIGHT(0), DARK(1), SYSTEM(2)
     }
 
 
-    fun showDialog(context : Context){
+    fun showDialog(context: Context) {
         var selectedItem = getSavedTheme(context).positionInList
 
         AlertDialog.Builder(context, R.style.Dialog)
@@ -36,7 +33,7 @@ object ThemeSettings {
             .show()
     }
 
-    private fun setNewTheme(context : Context, positionInList : Int){
+    private fun setNewTheme(context: Context, positionInList: Int) {
         when (positionInList) {
             Theme.LIGHT.positionInList -> {
                 rememberTheme(context, Theme.LIGHT)
@@ -50,12 +47,12 @@ object ThemeSettings {
                 rememberTheme(context, Theme.SYSTEM)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             }
-            else -> { }
+            else -> {}
         }
     }
 
-    fun applyExistingTheme(context: Context){
-        when(getSavedTheme(context)){
+    fun applyExistingTheme(context: Context) {
+        when (getSavedTheme(context)) {
             Theme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             Theme.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             Theme.SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -63,20 +60,20 @@ object ThemeSettings {
     }
 
 
-
-    private fun rememberTheme(context : Context, theme : Theme){
+    private fun rememberTheme(context: Context, theme: Theme) {
         getSharedPref(context).edit().putString(themeKey, theme.toString()).apply()
     }
 
-    private fun getSavedThemeString(context : Context): String {
-        var savedString : String? = getSharedPref(context).getString(themeKey, Theme.SYSTEM.toString())
-        if(savedString==null)
+    private fun getSavedThemeString(context: Context): String {
+        var savedString: String? =
+            getSharedPref(context).getString(themeKey, Theme.SYSTEM.toString())
+        if (savedString == null)
             savedString = Theme.SYSTEM.toString()
 
         return savedString
     }
 
-    private fun getSavedTheme(context : Context): Theme {
+    private fun getSavedTheme(context: Context): Theme {
         return valueOf(getSavedThemeString(context), Theme.SYSTEM)
     }
 

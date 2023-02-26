@@ -18,11 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/TypeUpTheme"
-        android:name=".TypeUpApp"
-        >
+        android:name=".TypeUpApp">
 
         <activity
-            android:name=".home.HomeActivity"
+            android:name=".home.SearchActivity"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysVisible"
             android:theme="@style/TypeUpTheme"

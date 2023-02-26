@@ -15,8 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.typeup.R
 import com.typeup.adapter.ListOfAppsAdapter
-import com.typeup.model.AppInfo
-import com.typeup.ui.options.SelectedAppActions
+import com.typeup.home.model.AppInfo
+import com.typeup.options.PolicyDialog
+import com.typeup.options.SelectedAppActions
+import com.typeup.options.ThemeSettings
 import com.typeup.util.showToast
 import com.typeup.util.toggleKeyboard
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +26,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
 
     @Inject
     lateinit var listOfAppsAdapter: ListOfAppsAdapter
@@ -46,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        val viewModel: HomeViewModel by viewModels()
+        val viewModel: SearchAppsViewModel by viewModels()
 
         confListViewAndAdapter()
 

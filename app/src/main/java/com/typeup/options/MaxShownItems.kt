@@ -1,17 +1,13 @@
-package com.typeup.ui.options
+package com.typeup.options
 
 import android.content.Context
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
-import com.typeup.ui.MainViewModel
+import com.typeup.home.SearchAppsViewModel
 import com.typeup.util.getInflater
 import com.typeup.util.getSharedPref
 
-/**
- * @author Marko Mihajlovic aka Fybriz
- * @see - Available on Google Play {https://play.google.com/store/apps/details?id=com.typeup}
- */
 object MaxShownItems {
 
     private const val maxItemsKey = "maxSizeOfItems"
@@ -19,7 +15,7 @@ object MaxShownItems {
     private const val max = 5
     public const val default = 3
 
-    fun showDialog(context: Context, mainViewModel: MainViewModel) {
+    fun showDialog(context: Context) {
         val dialogView = getInflater(context).inflate(R.layout.number_picker_dialog, null)
         val numPicker = dialogView.findViewById<NumberPicker>(R.id.dialog_number_picker)
         numPicker.maxValue = max
@@ -34,9 +30,6 @@ object MaxShownItems {
             .setView(dialogView)
             .setPositiveButton(context.getString(R.string.setTxt)) { dialog, _ ->
                 setMaxItems(context, numPicker.value)
-                mainViewModel.maxSize = numPicker.value
-
-                mainViewModel.reFilterList()
                 dialog.cancel()
             }
             .setNegativeButton(context.getString(R.string.cancelTxt)) { dialog, _ ->
@@ -45,11 +38,11 @@ object MaxShownItems {
             .show()
     }
 
-    private fun setMaxItems(context : Context, i : Int){
+    private fun setMaxItems(context: Context, i: Int) {
         getSharedPref(context).edit().putInt(maxItemsKey, i).apply()
     }
 
-    fun getMaxItems(context : Context) : Int{
+    fun getMaxItems(context: Context): Int {
         return getSharedPref(context).getInt(maxItemsKey, default)
     }
 

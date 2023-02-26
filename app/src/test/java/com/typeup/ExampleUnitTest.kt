@@ -1,7 +1,7 @@
 package com.typeup
 
 import org.hamcrest.MatcherAssert
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.`is`
 import org.junit.Test
 
 /**

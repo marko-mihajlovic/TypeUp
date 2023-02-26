@@ -1,6 +1,6 @@
 package com.typeup.home.data_source
 
-import com.typeup.model.AppInfo
+import com.typeup.home.model.AppInfo
 
 class FakeInstalledAppsDataSource : InstalledAppsDataSource {
 
@@ -16,7 +16,16 @@ class FakeInstalledAppsDataSource : InstalledAppsDataSource {
                 launcherActivity = "com.package.app.deep.Activity",
                 appName = "App2"
             ),
-        ) + listOf("last_abc", "abc", "salty_bacon", "abc_bacon", "bacon", "bob", "abc_johnny", "abc2").map { x ->
+        ) + listOf(
+            "last_abc",
+            "abc",
+            "salty_bacon",
+            "abc_bacon",
+            "bacon",
+            "bob",
+            "abc_johnny",
+            "abc2"
+        ).map { x ->
             getSingleAppInfo(x)
         }
     }

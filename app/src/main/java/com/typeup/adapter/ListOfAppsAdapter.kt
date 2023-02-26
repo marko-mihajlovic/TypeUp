@@ -6,20 +6,15 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.typeup.R
-import com.typeup.model.AppInfo
-import javax.inject.Inject
+import com.typeup.home.model.AppInfo
 
-/**
- * @author Marko Mihajlovic - Fybriz
- * @see - Available on Google Play {https://play.google.com/store/apps/details?id=com.typeup}
- */
 class ListOfAppsAdapter(
-    private val inflater : LayoutInflater,
-    private var appInfoList : List<AppInfo> = listOf()
+    private val inflater: LayoutInflater,
+    private var appInfoList: List<AppInfo> = listOf()
 ) : BaseAdapter() {
 
 
-    fun updateAdapter(list : List<AppInfo>){
+    fun updateAdapter(list: List<AppInfo>) {
         appInfoList = list
         notifyDataSetChanged()
     }
@@ -48,8 +43,6 @@ class ListOfAppsAdapter(
 
         return v
     }
-
-
 
 
 }
