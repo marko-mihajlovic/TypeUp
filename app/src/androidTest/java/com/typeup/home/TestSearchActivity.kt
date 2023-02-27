@@ -2,12 +2,12 @@ package com.typeup.home
 
 import android.view.View
 import android.widget.ListView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.PositionAssertions.isCompletelyBelow
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.R
@@ -17,44 +17,53 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.*
 import org.hamcrest.TypeSafeMatcher
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class TestSearchActivity {
 
-    @get:Rule
-    val activityRule = ActivityScenarioRule(SearchActivity::class.java)
-
     @Test
     fun test_activity() {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        getSharedPref(context).edit().clear().commit()
-
-        val acceptBtn = withText("Accept")
-        onView(acceptBtn).perform(click())
 
         val searchInput = withId(R.id.searchInput)
         val listView = withId(R.id.listView)
         val msgTxt = withId(R.id.msgTxt)
 
-        onView(listView).check(isCompletelyBelow(searchInput))
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        getSharedPref(context).edit().clear().commit()
 
-        onView(searchInput).perform(typeText("gm")) // gmail
-        onView(listView).check(matches(withListSize(1)))
+        ActivityScenario.launch(SearchActivity::class.java).use {
 
-        onView(searchInput).perform(clearText())
+            val acceptBtn = withText("Accept")
+            onView(acceptBtn).perform(click())
 
-        onView(searchInput).perform(typeText("non_existent_app"))
-        onView(listView).check(matches(withListSize(0)))
-        onView(msgTxt).check(matches(withText("No results found.")))
-        onView(msgTxt).check(isCompletelyBelow(searchInput))
+            onView(listView).check(isCompletelyBelow(searchInput))
 
-        onView(searchInput).perform(clearText())
+            onView(searchInput).perform(typeText("gm")) // gmail
+            onView(listView).check(matches(withListSize(1)))
 
-        onView(searchInput).perform(typeText("a"))
-        onView(listView).check(matches(withListSize(MaxShownItems.default)))
+            onView(searchInput).perform(clearText())
+
+            onView(searchInput).perform(typeText("non_existent_app"))
+            onView(listView).check(matches(withListSize(0)))
+            onView(msgTxt).check(matches(withText("No results found.")))
+            onView(msgTxt).check(isCompletelyBelow(searchInput))
+
+            onView(searchInput).perform(clearText())
+
+            onView(searchInput).perform(typeText("a"))
+            onView(listView).check(matches(withListSize(MaxShownItems.default)))
+
+        }
+
+        ActivityScenario.launch(SearchActivity::class.java).use {
+
+            onView(searchInput).perform(typeText("o"))
+            onView(listView).check(matches(withListSize(MaxShownItems.default)))
+
+        }
+
     }
 
 }
