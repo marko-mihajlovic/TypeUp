@@ -9,8 +9,10 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.R
 import com.typeup.options.MaxShownItems
+import com.typeup.util.getSharedPref
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.*
@@ -26,7 +28,13 @@ class TestSearchActivity {
     val activityRule = ActivityScenarioRule(SearchActivity::class.java)
 
     @Test
-    fun test() {
+    fun test_activity() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        getSharedPref(context).edit().clear().commit()
+
+        val acceptBtn = withText("Accept")
+        onView(acceptBtn).perform(click())
+
         val searchInput = withId(R.id.searchInput)
         val listView = withId(R.id.listView)
         val msgTxt = withId(R.id.msgTxt)
@@ -41,6 +49,7 @@ class TestSearchActivity {
         onView(searchInput).perform(typeText("non_existent_app"))
         onView(listView).check(matches(withListSize(0)))
         onView(msgTxt).check(matches(withText("No results found.")))
+        onView(msgTxt).check(isCompletelyBelow(searchInput))
 
         onView(searchInput).perform(clearText())
 

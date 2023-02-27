@@ -24,7 +24,7 @@ class TestInstalledAppsRepo {
         val repo = InstalledAppsRepoImpl(context, fakeDataSource)
 
         // Clear cache
-        getSharedPref(context).edit().remove("installed_apps").apply()
+        getSharedPref(context).edit().remove("installed_apps").commit()
 
         // Check empty cache is emitted
         assertThat(repo.get().firstOrNull(), `is`(empty()))
