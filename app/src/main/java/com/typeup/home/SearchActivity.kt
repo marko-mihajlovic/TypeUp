@@ -46,6 +46,8 @@ class SearchActivity : AppCompatActivity() {
         searchInput = findViewById(R.id.searchInput)
         msgTxt = findViewById(R.id.msgTxt)
 
+        PolicyDialog.tryToShow(this, false)
+
         initUI()
     }
 

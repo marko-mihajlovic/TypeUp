@@ -41,15 +41,9 @@
         <item>System Default</item>
     </array>
 
-    <string name="privacyLongTxt">We do not track nor save any private data. PERIOD.
-        \n\nThis app is a minimalistic search tool that enables you to find and access all of your apps.
-        You can now clear your phone\'s home screen and use this app whenever you need to access another app.
-        As a result, your home screen will be clean and minimalistic.
-        \n\nNote: Apps you want to access using this app must be already installed on your device.
-        \n\nHow does this work?
-        \n• This app requests list of your apps from your device and displays it on the screen, nothing is being tracked or saved.
-        \n• If our app crashes, Google Play Store may show us an anonymous Error log.
-        \n• Apps you search for are never going to leave this app and won\'t be saved anywhere.
+    <string name="privacyLongTxt">This app does not collect any information about you.
+        \n\n<a href="https://github.com/marko-mihajlovic/TypeUp/wiki/Privacy-Policy"><i>View full Privacy Policy</i></a>
     </string>
+
 
 </resources>
