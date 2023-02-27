@@ -38,6 +38,7 @@ class SearchActivity : AppCompatActivity() {
     private var msgTxt: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeSettings.applyExistingTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
