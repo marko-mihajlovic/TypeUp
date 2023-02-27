@@ -20,7 +20,6 @@ import com.typeup.options.MainOptions
 import com.typeup.options.PolicyDialog
 import com.typeup.options.SelectedAppActions
 import com.typeup.options.ThemeSettings
-import com.typeup.util.showToast
 import com.typeup.util.toggleKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -34,6 +33,9 @@ class SearchActivity : AppCompatActivity() {
 
     @Inject
     lateinit var selectedAppActions: SelectedAppActions
+
+    @Inject
+    lateinit var mainOptions: MainOptions
 
     private var searchInput: EditText? = null
     private var msgTxt: TextView? = null
@@ -84,7 +86,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         findViewById<ImageView>(R.id.optionsBtn)?.setOnClickListener {
-            MainOptions.showDialog(this)
+            mainOptions.showDialog(this)
         }
     }
 

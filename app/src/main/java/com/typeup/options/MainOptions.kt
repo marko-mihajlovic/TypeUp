@@ -6,7 +6,7 @@ import com.typeup.R
 import com.typeup.util.openUrl
 import com.typeup.util.shareTypeUpLink
 
-object MainOptions {
+class MainOptions {
 
     private enum class Item(val positionInList: Int) {
         MAX_NUM(0),
