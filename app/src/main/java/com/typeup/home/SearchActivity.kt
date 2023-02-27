@@ -16,6 +16,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.typeup.R
 import com.typeup.adapter.ListOfAppsAdapter
 import com.typeup.home.model.AppInfo
+import com.typeup.options.MainOptions
 import com.typeup.options.PolicyDialog
 import com.typeup.options.SelectedAppActions
 import com.typeup.options.ThemeSettings
@@ -81,7 +82,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         findViewById<ImageView>(R.id.optionsBtn)?.setOnClickListener {
-            showToast(this, "TODO")
+            MainOptions.showDialog(this)
         }
     }
 
