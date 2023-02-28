@@ -1,6 +1,4 @@
-package com.typeup.home
-
-import com.typeup.home.model.AppInfo
+package com.typeup.home.model
 
 sealed class SearchAppsUiState {
     data class Success(val list: List<AppInfo>) : SearchAppsUiState()

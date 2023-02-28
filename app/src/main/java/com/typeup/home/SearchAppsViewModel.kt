@@ -2,6 +2,7 @@ package com.typeup.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.typeup.home.model.SearchAppsUiState
 import com.typeup.home.use_case.SearchAppsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

@@ -16,6 +16,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.typeup.R
 import com.typeup.adapter.ListOfAppsAdapter
 import com.typeup.home.model.AppInfo
+import com.typeup.home.model.SearchAppsUiState
 import com.typeup.options.main.MainOptions
 import com.typeup.options.common.PolicyDialog
 import com.typeup.options.common.SelectedAppActions
