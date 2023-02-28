@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
 import com.typeup.options.common.PolicyDialog
+import com.typeup.util.LinkUtil
 import com.typeup.util.openUrl
-import com.typeup.util.shareTypeUpLink
 
 object MoreOptions {
 
@@ -24,7 +24,7 @@ object MoreOptions {
 
                 when (x) {
                     Item.POLICY.positionInList -> PolicyDialog.tryToShow(context, true)
-                    Item.SHARE.positionInList -> shareTypeUpLink(context)
+                    Item.SHARE.positionInList -> LinkUtil.shareTypeUpLink(context)
                     Item.FEATURE_FEEDBACK.positionInList -> openUrl(
                         context,
                         context.getString(R.string.featureFeedbackUrl)

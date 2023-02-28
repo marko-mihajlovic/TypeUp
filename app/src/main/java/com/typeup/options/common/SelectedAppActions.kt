@@ -8,7 +8,7 @@ import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
 import com.typeup.home.model.AppInfo
-import com.typeup.util.GP_URL
+import com.typeup.util.LinkUtil
 import com.typeup.util.openIntent
 
 class SelectedAppActions(
@@ -60,7 +60,7 @@ class SelectedAppActions(
     }
 
     private fun openInGP(packageName: String) {
-        val uri = Uri.parse(GP_URL + packageName)
+        val uri = Uri.parse(LinkUtil.GP_URL + packageName)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         openIntent(context, intent)
     }
