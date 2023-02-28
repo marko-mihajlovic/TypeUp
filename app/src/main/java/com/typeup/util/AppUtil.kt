@@ -8,11 +8,6 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import com.typeup.R
 
-/** Opening URL **/
-fun openUrl(context: Context, url: String?) {
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-    openIntent(context, intent)
-}
 
 /** Open intent **/
 fun openIntent(context: Context, intent: Intent) {

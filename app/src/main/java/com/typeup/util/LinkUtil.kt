@@ -2,6 +2,7 @@ package com.typeup.util
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import com.typeup.BuildConfig
 
 object LinkUtil {
@@ -19,6 +20,11 @@ object LinkUtil {
 
         val shareIntent = Intent.createChooser(sendIntent, "Share TypeUp link")
         openIntent(context, shareIntent)
+    }
+
+    fun openUrl(context: Context, url: String?) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        openIntent(context, intent)
     }
 
 }
