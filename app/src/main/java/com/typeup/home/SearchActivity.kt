@@ -21,7 +21,7 @@ import com.typeup.options.main.MainOptions
 import com.typeup.options.common.PolicyDialog
 import com.typeup.options.common.SelectedAppActions
 import com.typeup.options.main.ThemeSettings
-import com.typeup.util.ControlKeyboard
+import com.typeup.util.KeyboardUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -43,7 +43,7 @@ class SearchActivity : AppCompatActivity() {
 
         searchInput = findViewById(R.id.searchInput)
         msgTxt = findViewById(R.id.msgTxt)
-        ControlKeyboard.toggle(this, searchInput, true)
+        KeyboardUtil.show(this, searchInput)
     }
 
     init {
