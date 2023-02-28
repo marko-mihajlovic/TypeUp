@@ -11,7 +11,7 @@ import com.typeup.home.model.AppInfo
 import com.typeup.util.AppUtil
 import com.typeup.util.LinkUtil
 
-object SelectedAppActions{
+object SelectedAppActions {
 
     private enum class Item(val positionInList: Int) {
         INFO(0),

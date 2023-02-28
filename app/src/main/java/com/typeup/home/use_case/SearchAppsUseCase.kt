@@ -1,7 +1,7 @@
 package com.typeup.home.use_case
 
-import com.typeup.home.model.SearchAppsUiState
 import com.typeup.home.model.AppInfo
+import com.typeup.home.model.SearchAppsUiState
 import com.typeup.home.repo.InstalledAppsRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

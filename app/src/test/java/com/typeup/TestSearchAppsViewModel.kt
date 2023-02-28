@@ -1,7 +1,7 @@
 package com.typeup
 
-import com.typeup.home.model.SearchAppsUiState
 import com.typeup.home.SearchAppsViewModel
+import com.typeup.home.model.SearchAppsUiState
 import com.typeup.home.repo.FakeAppsRepo
 import com.typeup.home.use_case.SearchAppsUseCase
 import com.typeup.rules.MainDispatcherRule

@@ -2,7 +2,6 @@ package com.typeup.di
 
 import android.content.Context
 import com.typeup.adapter.ListOfAppsAdapter
-import com.typeup.options.common.SelectedAppActions
 import com.typeup.util.AppUtil
 import dagger.Module
 import dagger.Provides
