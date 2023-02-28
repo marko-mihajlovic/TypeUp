@@ -12,7 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.R
 import com.typeup.options.main.MaxShownItems
-import com.typeup.util.getSharedPref
+import com.typeup.util.SharedPref
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.*
@@ -31,7 +31,7 @@ class TestSearchActivity {
         val msgTxt = withId(R.id.msgTxt)
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        getSharedPref(context).edit().clear().commit()
+        SharedPref.edit(context).clear().commit()
 
         ActivityScenario.launch(SearchActivity::class.java).use {
 

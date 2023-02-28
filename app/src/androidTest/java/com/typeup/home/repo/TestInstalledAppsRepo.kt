@@ -3,7 +3,7 @@ package com.typeup.home.repo
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.home.data_source.FakeInstalledAppsDataSource
-import com.typeup.util.getSharedPref
+import com.typeup.util.SharedPref
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.lastOrNull
@@ -24,7 +24,7 @@ class TestInstalledAppsRepo {
         val repo = InstalledAppsRepoImpl(context, fakeDataSource)
 
         // Clear cache
-        getSharedPref(context).edit().remove("installed_apps").commit()
+        SharedPref.edit(context).remove("installed_apps").commit()
 
         // Check empty cache is emitted
         assertThat(repo.get().firstOrNull(), `is`(empty()))
