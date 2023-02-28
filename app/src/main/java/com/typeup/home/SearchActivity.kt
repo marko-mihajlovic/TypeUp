@@ -28,6 +28,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SearchActivity : AppCompatActivity() {
 
+    private val viewModel: SearchAppsViewModel by viewModels()
+
     @Inject
     lateinit var listOfAppsAdapter: ListOfAppsAdapter
 
@@ -41,26 +43,20 @@ class SearchActivity : AppCompatActivity() {
     private var msgTxt: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ThemeSettings.applyExistingTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         searchInput = findViewById(R.id.searchInput)
         msgTxt = findViewById(R.id.msgTxt)
-
-        PolicyDialog.tryToShow(this, false)
-
-        initUI()
+        toggleKeyboard(this, searchInput, true)
     }
 
-    private fun initUI() {
-        val viewModel: SearchAppsViewModel by viewModels()
-
-        confListViewAndAdapter()
-
+    init {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { x ->
+                    runAfterLoadingOnce()
+
                     when (x) {
                         is SearchAppsUiState.Error -> {
                             updateMsgTxt(true, x.msg)
@@ -78,21 +74,31 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
         }
-
-        searchInput?.doAfterTextChanged { text: Editable? ->
-            viewModel.searchApps(
-                text?.toString()?.trim()?.lowercase() ?: ""
-            )
-        }
-
-        findViewById<ImageView>(R.id.optionsBtn)?.setOnClickListener {
-            mainOptions.showDialog(this)
-        }
     }
 
     private fun updateMsgTxt(visible: Boolean, msg: String = "") {
         msgTxt?.visibility = if (visible) View.VISIBLE else View.GONE
         msgTxt?.text = if (visible) msg else ""
+    }
+
+    private var isFirstTime = true
+    private fun runAfterLoadingOnce() {
+        if (!isFirstTime) return
+        isFirstTime = false
+
+        ThemeSettings.applyExistingTheme(this)
+        PolicyDialog.tryToShow(this, false)
+
+        confListViewAndAdapter()
+
+        searchInput?.doAfterTextChanged { text: Editable? ->
+            val text = text?.toString()?.trim()?.lowercase() ?: ""
+            viewModel.searchApps(text)
+        }
+
+        findViewById<ImageView>(R.id.optionsBtn)?.setOnClickListener {
+            mainOptions.showDialog(this)
+        }
     }
 
     private fun confListViewAndAdapter() {
@@ -112,16 +118,4 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-
-    override fun onResume() {
-        super.onResume()
-
-        toggleKeyboard(this, searchInput, true)
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        toggleKeyboard(this, searchInput, false)
-    }
 }

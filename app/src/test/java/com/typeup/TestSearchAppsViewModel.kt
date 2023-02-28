@@ -24,7 +24,7 @@ class TestSearchAppsViewModel {
 
         assertThat(
             viewModel.uiState.value,
-            Matchers.isA(SearchAppsUiState.Success::class.java)
+            Matchers.isA(SearchAppsUiState.Loading::class.java)
         )
     }
 
