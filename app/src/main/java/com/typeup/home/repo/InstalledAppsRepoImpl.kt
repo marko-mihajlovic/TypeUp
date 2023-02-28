@@ -26,7 +26,7 @@ class InstalledAppsRepoImpl @Inject constructor(
                 apps = cache
                 emit(cache)
 
-                if(cache.isEmpty() || refresh){
+                if (cache.isEmpty() || refresh) {
                     val installedApps = dataSource.get()
                     apps = installedApps
                     saveCache(installedApps)

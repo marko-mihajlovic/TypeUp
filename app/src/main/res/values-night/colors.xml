@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- DARK MODE -->
 <resources>
+    <!-- DARK MODE -->
     <color name="normalBgColor">#000000</color>
     <color name="normalTextColor">#DADADA</color>
     <color name="normalTextColorMiddle">#78DADADA</color>

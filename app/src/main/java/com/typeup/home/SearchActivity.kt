@@ -123,7 +123,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun refreshSearch(){
+    private fun refreshSearch() {
         val text = searchInput?.text?.toString()?.trim()?.lowercase() ?: ""
         viewModel.searchApps(text, true)
     }
