@@ -13,6 +13,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.R
 import com.typeup.options.main.MaxShownItems
 import com.typeup.util.SharedPref
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.*
@@ -24,7 +26,7 @@ import org.junit.runner.RunWith
 class TestSearchActivity {
 
     @Test
-    fun test_activity() {
+    fun test_activity(): Unit = runBlocking {
 
         val searchInput = withId(R.id.searchInput)
         val listView = withId(R.id.listView)
@@ -41,6 +43,7 @@ class TestSearchActivity {
             onView(listView).check(isCompletelyBelow(searchInput))
 
             onView(searchInput).perform(typeText("gm")) // gmail
+            delay(100) // delay to allow slow devices to load installed apps
             onView(listView).check(matches(withListSize(1)))
 
             onView(searchInput).perform(clearText())
