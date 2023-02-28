@@ -10,10 +10,11 @@ object MainOptions {
     private enum class Item(val positionInList: Int) {
         MAX_NUM(0),
         THEME(1),
-        MORE(2),
+        REFRESH(2),
+        MORE(3),
     }
 
-    fun showDialog(context: Context) {
+    fun showDialog(context: Context, onRefresh: () -> Unit) {
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(context.getString(R.string.menuOptionsTitle))
             .setItems(R.array.options) { dialog, x ->
@@ -22,6 +23,7 @@ object MainOptions {
                 when (x) {
                     Item.THEME.positionInList -> ThemeSettings.showDialog(context)
                     Item.MAX_NUM.positionInList -> MaxShownItems.showDialog(context)
+                    Item.REFRESH.positionInList -> onRefresh()
                     Item.MORE.positionInList -> MoreOptions.showDialog(context)
                     else -> {}
                 }

@@ -25,6 +25,7 @@
     <array name="options">
         <item>Max num of items</item>
         <item>Theme</item>
+        <item>Refresh</item>
         <item>More</item>
     </array>
 

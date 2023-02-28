@@ -94,7 +94,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         findViewById<ImageView>(R.id.optionsBtn)?.setOnClickListener {
-            MainOptions.showDialog(this)
+            MainOptions.showDialog(this, ::refreshSearch)
         }
     }
 
