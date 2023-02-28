@@ -5,7 +5,7 @@ import androidx.appcompat.app.AlertDialog
 import com.typeup.R
 import com.typeup.options.more.MoreOptions
 
-class MainOptions {
+object MainOptions {
 
     private enum class Item(val positionInList: Int) {
         MAX_NUM(0),

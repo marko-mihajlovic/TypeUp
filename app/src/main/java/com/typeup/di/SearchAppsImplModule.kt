@@ -4,7 +4,6 @@ import android.content.Context
 import com.typeup.home.data_source.InstalledAppsDataSource
 import com.typeup.home.data_source.InstalledAppsDataSourceImpl
 import com.typeup.home.repo.InstalledAppsRepoImpl
-import com.typeup.options.main.MainOptions
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,12 +12,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
-
-    @Provides
-    fun provideMainOptions(): MainOptions {
-        return MainOptions()
-    }
+class SearchAppsImplModule {
 
     @Provides
     fun provideInstalledAppsRepoImpl(

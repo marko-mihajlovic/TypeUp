@@ -21,11 +21,4 @@ object ActivityModule {
         return ListOfAppsAdapter(AppUtil.getInflater(context))
     }
 
-    @Provides
-    fun provideSelectedAppActions(
-        @ActivityContext context: Context
-    ): SelectedAppActions {
-        return SelectedAppActions(context)
-    }
-
 }

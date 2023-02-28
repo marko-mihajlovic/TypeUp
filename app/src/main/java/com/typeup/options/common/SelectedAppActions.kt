@@ -11,16 +11,14 @@ import com.typeup.home.model.AppInfo
 import com.typeup.util.AppUtil
 import com.typeup.util.LinkUtil
 
-class SelectedAppActions(
-    val context: Context
-) {
+object SelectedAppActions{
 
     private enum class Item(val positionInList: Int) {
         INFO(0),
         GP(1),
     }
 
-    fun openSelectedApp(appInfo: AppInfo) {
+    fun openApp(context: Context, appInfo: AppInfo) {
         val name = ComponentName(
             appInfo.packageName,
             appInfo.launcherActivity
@@ -35,31 +33,31 @@ class SelectedAppActions(
     }
 
 
-    fun showLongClickOptions(appInfo: AppInfo) {
+    fun showAppOptions(context: Context, appInfo: AppInfo) {
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(appInfo.appName)
             .setItems(R.array.selectedAppOptions) { dialog, x ->
                 dialog.cancel()
 
                 when (x) {
-                    Item.INFO.positionInList -> openAppInfo(appInfo.packageName)
-                    Item.GP.positionInList -> openInGP(appInfo.packageName)
+                    Item.INFO.positionInList -> openAppInfo(context, appInfo.packageName)
+                    Item.GP.positionInList -> openInGP(context, appInfo.packageName)
                     else -> {}
                 }
             }
-            .setNegativeButton(context.getString(R.string.cancelTxt)) { dialog, _ ->
+            .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
                 dialog.cancel()
             }
             .show()
     }
 
-    private fun openAppInfo(packageName: String) {
+    private fun openAppInfo(context: Context, packageName: String) {
         val uri = Uri.fromParts("package", packageName, null)
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
         AppUtil.openIntent(context, intent)
     }
 
-    private fun openInGP(packageName: String) {
+    private fun openInGP(context: Context, packageName: String) {
         val uri = Uri.parse(LinkUtil.GP_URL + packageName)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         AppUtil.openIntent(context, intent)

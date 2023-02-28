@@ -34,12 +34,6 @@ class SearchActivity : AppCompatActivity() {
     @Inject
     lateinit var listOfAppsAdapter: ListOfAppsAdapter
 
-    @Inject
-    lateinit var selectedAppActions: SelectedAppActions
-
-    @Inject
-    lateinit var mainOptions: MainOptions
-
     private var searchInput: EditText? = null
     private var msgTxt: TextView? = null
 
@@ -93,12 +87,11 @@ class SearchActivity : AppCompatActivity() {
         confListViewAndAdapter()
 
         searchInput?.doAfterTextChanged { text: Editable? ->
-            val text = text?.toString()?.trim()?.lowercase() ?: ""
-            viewModel.searchApps(text)
+            viewModel.searchApps(text?.toString()?.trim()?.lowercase() ?: "")
         }
 
         findViewById<ImageView>(R.id.optionsBtn)?.setOnClickListener {
-            mainOptions.showDialog(this)
+            MainOptions.showDialog(this)
         }
     }
 
@@ -108,12 +101,12 @@ class SearchActivity : AppCompatActivity() {
 
         listView.setOnItemClickListener { parent, _, position, _ ->
             val element = parent.getItemAtPosition(position) as AppInfo
-            selectedAppActions.openSelectedApp(element)
+            SelectedAppActions.openApp(this, element)
         }
 
         listView.setOnItemLongClickListener { parent, _, position, _ ->
             val element = parent.getItemAtPosition(position) as AppInfo
-            selectedAppActions.showLongClickOptions(element)
+            SelectedAppActions.showAppOptions(this, element)
 
             return@setOnItemLongClickListener (true)
         }
