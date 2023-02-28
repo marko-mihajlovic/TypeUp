@@ -115,14 +115,16 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun confRefreshLayout(){
+    private fun confRefreshLayout() {
         refreshLayout = findViewById(R.id.refreshLayout)
         refreshLayout?.setOnRefreshListener {
-            val text = searchInput?.text?.toString()?.trim()?.lowercase() ?: ""
-            viewModel.searchApps(text, true)
-
+            refreshSearch()
             refreshLayout?.isRefreshing = false
         }
     }
 
+    private fun refreshSearch(){
+        val text = searchInput?.text?.toString()?.trim()?.lowercase() ?: ""
+        viewModel.searchApps(text, true)
+    }
 }
