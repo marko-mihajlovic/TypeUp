@@ -19,12 +19,12 @@ object LinkUtil {
         }
 
         val shareIntent = Intent.createChooser(sendIntent, "Share TypeUp link")
-        openIntent(context, shareIntent)
+        AppUtil.openIntent(context, shareIntent)
     }
 
     fun openUrl(context: Context, url: String?) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        openIntent(context, intent)
+        AppUtil.openIntent(context, intent)
     }
 
 }

@@ -4,8 +4,8 @@ import android.content.Context
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
+import com.typeup.util.AppUtil
 import com.typeup.util.SharedPref
-import com.typeup.util.getInflater
 
 object MaxShownItems {
 
@@ -15,7 +15,7 @@ object MaxShownItems {
     public const val default = 3
 
     fun showDialog(context: Context) {
-        val dialogView = getInflater(context).inflate(R.layout.number_picker_dialog, null)
+        val dialogView = AppUtil.getInflater(context).inflate(R.layout.number_picker_dialog, null)
         val numPicker = dialogView.findViewById<NumberPicker>(R.id.dialog_number_picker)
         numPicker.maxValue = max
         numPicker.minValue = min

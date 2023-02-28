@@ -8,8 +8,8 @@ import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
 import com.typeup.home.model.AppInfo
+import com.typeup.util.AppUtil
 import com.typeup.util.LinkUtil
-import com.typeup.util.openIntent
 
 class SelectedAppActions(
     val context: Context
@@ -31,7 +31,7 @@ class SelectedAppActions(
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
         i.component = name
 
-        openIntent(context, i)
+        AppUtil.openIntent(context, i)
     }
 
 
@@ -56,13 +56,13 @@ class SelectedAppActions(
     private fun openAppInfo(packageName: String) {
         val uri = Uri.fromParts("package", packageName, null)
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri)
-        openIntent(context, intent)
+        AppUtil.openIntent(context, intent)
     }
 
     private fun openInGP(packageName: String) {
         val uri = Uri.parse(LinkUtil.GP_URL + packageName)
         val intent = Intent(Intent.ACTION_VIEW, uri)
-        openIntent(context, intent)
+        AppUtil.openIntent(context, intent)
     }
 
 

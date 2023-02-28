@@ -3,7 +3,7 @@ package com.typeup.di
 import android.content.Context
 import com.typeup.adapter.ListOfAppsAdapter
 import com.typeup.options.common.SelectedAppActions
-import com.typeup.util.getInflater
+import com.typeup.util.AppUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +18,7 @@ object ActivityModule {
     fun provideListOfAppsAdapter(
         @ActivityContext context: Context
     ): ListOfAppsAdapter {
-        return ListOfAppsAdapter(getInflater(context))
+        return ListOfAppsAdapter(AppUtil.getInflater(context))
     }
 
     @Provides
