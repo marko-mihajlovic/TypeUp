@@ -4,7 +4,7 @@ import android.content.Context
 import com.typeup.home.data_source.InstalledAppsDataSource
 import com.typeup.home.model.AppInfo
 import com.typeup.options.main.MaxShownItems
-import com.typeup.util.getSharedPref
+import com.typeup.util.SharedPref
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.decodeFromString
@@ -42,11 +42,11 @@ class InstalledAppsRepoImpl @Inject constructor(
 
     private fun saveCache(installedApps: List<AppInfo>) {
         val jsonString = Json.encodeToString(installedApps)
-        getSharedPref(context).edit().putString("installed_apps", jsonString).apply()
+        SharedPref.edit(context).putString("installed_apps", jsonString).apply()
     }
 
     private fun getCachedApps(): List<AppInfo> {
-        val string = getSharedPref(context).getString("installed_apps", "") ?: ""
+        val string = SharedPref.get(context).getString("installed_apps", "") ?: ""
 
         return try {
             Json.decodeFromString(string) ?: emptyList()

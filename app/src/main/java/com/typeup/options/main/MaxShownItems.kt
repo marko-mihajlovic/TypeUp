@@ -4,8 +4,8 @@ import android.content.Context
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
+import com.typeup.util.SharedPref
 import com.typeup.util.getInflater
-import com.typeup.util.getSharedPref
 
 object MaxShownItems {
 
@@ -38,11 +38,11 @@ object MaxShownItems {
     }
 
     private fun setMaxItems(context: Context, i: Int) {
-        getSharedPref(context).edit().putInt(maxItemsKey, i).apply()
+        SharedPref.edit(context).putInt(maxItemsKey, i).apply()
     }
 
     fun getMaxItems(context: Context): Int {
-        return getSharedPref(context).getInt(maxItemsKey, default)
+        return SharedPref.get(context).getInt(maxItemsKey, default)
     }
 
 }

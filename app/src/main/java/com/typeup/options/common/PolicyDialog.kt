@@ -6,14 +6,14 @@ import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
-import com.typeup.util.getSharedPref
+import com.typeup.util.SharedPref
 
 object PolicyDialog {
 
     private const val hasAcceptedPolicyKey = "hasAcceptedPrivacyPolicy-v2"
 
     fun tryToShow(context: Context, forceShow: Boolean) {
-        val appPref = getSharedPref(context)
+        val appPref = SharedPref.get(context)
         val hasAcceptedPP = appPref.getBoolean(hasAcceptedPolicyKey, false)
 
         if (!hasAcceptedPP || forceShow)

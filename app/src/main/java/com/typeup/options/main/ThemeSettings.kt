@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import com.typeup.R
-import com.typeup.util.getSharedPref
+import com.typeup.util.SharedPref
 
 object ThemeSettings {
 
@@ -61,12 +61,12 @@ object ThemeSettings {
 
 
     private fun rememberTheme(context: Context, theme: Theme) {
-        getSharedPref(context).edit().putString(themeKey, theme.toString()).apply()
+        SharedPref.edit(context).putString(themeKey, theme.toString()).apply()
     }
 
     private fun getSavedThemeString(context: Context): String {
         var savedString: String? =
-            getSharedPref(context).getString(themeKey, Theme.SYSTEM.toString())
+            SharedPref.get(context).getString(themeKey, Theme.SYSTEM.toString())
         if (savedString == null)
             savedString = Theme.SYSTEM.toString()
 
