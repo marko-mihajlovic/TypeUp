@@ -10,7 +10,7 @@ class FakeAppsRepo(
     private val maxSize: Int = MaxShownItems.default
 ) : InstalledAppsRepo {
 
-    override fun get(): Flow<List<AppInfo>> {
+    override fun get(refresh: Boolean): Flow<List<AppInfo>> {
         val fakeDataSource = FakeInstalledAppsDataSource()
 
         return flow {

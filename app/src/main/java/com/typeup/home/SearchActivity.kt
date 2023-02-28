@@ -13,6 +13,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.typeup.R
 import com.typeup.adapter.ListOfAppsAdapter
 import com.typeup.home.model.AppInfo
@@ -36,6 +37,7 @@ class SearchActivity : AppCompatActivity() {
 
     private var searchInput: EditText? = null
     private var msgTxt: TextView? = null
+    private var refreshLayout: SwipeRefreshLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +87,7 @@ class SearchActivity : AppCompatActivity() {
         PolicyDialog.tryToShow(this, false)
 
         confListViewAndAdapter()
+        confRefreshLayout()
 
         searchInput?.doAfterTextChanged { text: Editable? ->
             viewModel.searchApps(text?.toString()?.trim()?.lowercase() ?: "")
@@ -109,6 +112,16 @@ class SearchActivity : AppCompatActivity() {
             SelectedAppActions.showAppOptions(this, element)
 
             return@setOnItemLongClickListener (true)
+        }
+    }
+
+    private fun confRefreshLayout(){
+        refreshLayout = findViewById(R.id.refreshLayout)
+        refreshLayout?.setOnRefreshListener {
+            val text = searchInput?.text?.toString()?.trim()?.lowercase() ?: ""
+            viewModel.searchApps(text, true)
+
+            refreshLayout?.isRefreshing = false
         }
     }
 

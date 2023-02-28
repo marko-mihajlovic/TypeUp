@@ -12,9 +12,9 @@ class SearchAppsUseCase @Inject constructor(
     private val repo: InstalledAppsRepo,
 ) {
 
-    suspend operator fun invoke(filterText: String): Flow<SearchAppsUiState> {
+    suspend operator fun invoke(filterText: String, refresh: Boolean = false): Flow<SearchAppsUiState> {
         return flow {
-            repo.get().collect() { x ->
+            repo.get(refresh).collect() { x ->
                 emit(getUiState(x, filterText))
             }
         }
