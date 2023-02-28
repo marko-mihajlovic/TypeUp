@@ -1,39 +1,15 @@
 package com.typeup.util
 
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.typeup.BuildConfig
 import com.typeup.R
 
 const val GP_URL = "https://play.google.com/store/apps/details?id="
-
-/** Keyboard **/
-fun toggleKeyboard(activity: Activity, view: EditText?, visible: Boolean) {
-    if (visible) {
-        view?.post {
-            view.requestFocus()
-            val inputMethodManager =
-                activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-        }
-    } else {
-        val imm =
-            activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(
-            activity.window.decorView.windowToken,
-            InputMethodManager.HIDE_IMPLICIT_ONLY
-        )
-        view?.text?.clear()
-    }
-}
 
 /** Share app link */
 fun shareTypeUpLink(context: Context) {
