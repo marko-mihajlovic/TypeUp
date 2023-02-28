@@ -3,45 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:orientation="vertical"
-    android:background="@color/normalBgColor">
+    android:background="@color/normalBgColor"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/optionsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_menu"
         android:layout_gravity="end"
-        android:padding="16dp"
         android:layout_margin="8dp"
-        android:contentDescription="@string/menu"
 
-        android:background="?attr/selectableItemBackgroundBorderless" />
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/menu"
+        android:padding="16dp"
+        android:src="@drawable/ic_menu" />
 
     <EditText
         android:id="@+id/searchInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+
+        android:backgroundTint="@color/normalTextColorSmall"
         android:hint="@string/search_apps"
 
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="24dp"
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:padding="24dp"
 
         android:textColor="@color/normalTextColor"
-        android:textColorHint="@color/normalTextColorMiddle"
-        android:importantForAutofill="no"
-        android:inputType="text"
-
-        android:backgroundTint="@color/normalTextColorSmall" />
+        android:textColorHint="@color/normalTextColorMiddle" />
 
     <TextView
         android:id="@+id/msgTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/normalTextColorMiddle"
         android:gravity="center"
         android:padding="16dp"
+        android:textColor="@color/normalTextColorMiddle"
         android:visibility="gone" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
