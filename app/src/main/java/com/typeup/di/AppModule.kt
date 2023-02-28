@@ -4,7 +4,7 @@ import android.content.Context
 import com.typeup.home.data_source.InstalledAppsDataSource
 import com.typeup.home.data_source.InstalledAppsDataSourceImpl
 import com.typeup.home.repo.InstalledAppsRepoImpl
-import com.typeup.options.MainOptions
+import com.typeup.options.main.MainOptions
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

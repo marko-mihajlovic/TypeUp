@@ -16,6 +16,7 @@
     <string name="setTxt">Set</string>
     <string name="cancelTxt">Cancel</string>
     <string name="menuOptionsTitle">Options</string>
+    <string name="menuMoreOptionsTitle">More options</string>
     <string name="chooseThemeTitle">Choose theme</string>
 
     <string name="featureFeedbackUrl" tools:ignore="Typos">https://docs.google.com/forms/d/e/1FAIpQLSdL6XDyBNedZhVXMOUzTHdFG0qHTrzoJIYbsB6XLWDMPmWp1A/viewform</string>
@@ -24,6 +25,10 @@
     <array name="options">
         <item>Max num of items</item>
         <item>Theme</item>
+        <item>More</item>
+    </array>
+
+    <array name="options_more">
         <item>Donate</item>
         <item>Feedback | Feature request</item>
         <item>@string/privacyPolicyTxt</item>

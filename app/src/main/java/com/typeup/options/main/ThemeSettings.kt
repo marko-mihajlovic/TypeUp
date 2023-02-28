@@ -1,4 +1,4 @@
-package com.typeup.options
+package com.typeup.options.main
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog

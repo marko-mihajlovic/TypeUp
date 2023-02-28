@@ -1,35 +1,30 @@
-package com.typeup.options
+package com.typeup.options.more
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
+import com.typeup.options.common.PolicyDialog
 import com.typeup.util.openUrl
 import com.typeup.util.shareTypeUpLink
 
-class MainOptions {
+object MoreOptions {
 
     private enum class Item(val positionInList: Int) {
-        MAX_NUM(0),
-        THEME(1),
-        DONATE(2),
-        FEATURE_FEEDBACK(3),
-        POLICY(4),
-        SHARE(5),
+        DONATE(0),
+        FEATURE_FEEDBACK(1),
+        POLICY(2),
+        SHARE(3),
     }
 
     fun showDialog(context: Context) {
         AlertDialog.Builder(context, R.style.Dialog)
-            .setTitle(context.getString(R.string.menuOptionsTitle))
-            .setItems(R.array.options) { dialog, x ->
+            .setTitle(context.getString(R.string.menuMoreOptionsTitle))
+            .setItems(R.array.options_more) { dialog, x ->
                 dialog.cancel()
 
                 when (x) {
-                    Item.THEME.positionInList -> ThemeSettings.showDialog(context)
                     Item.POLICY.positionInList -> PolicyDialog.tryToShow(context, true)
-                    Item.MAX_NUM.positionInList -> MaxShownItems.showDialog(context)
-
                     Item.SHARE.positionInList -> shareTypeUpLink(context)
-
                     Item.FEATURE_FEEDBACK.positionInList -> openUrl(
                         context,
                         context.getString(R.string.featureFeedbackUrl)

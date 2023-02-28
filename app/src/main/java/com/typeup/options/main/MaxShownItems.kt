@@ -1,10 +1,9 @@
-package com.typeup.options
+package com.typeup.options.main
 
 import android.content.Context
 import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
-import com.typeup.home.SearchAppsViewModel
 import com.typeup.util.getInflater
 import com.typeup.util.getSharedPref
 

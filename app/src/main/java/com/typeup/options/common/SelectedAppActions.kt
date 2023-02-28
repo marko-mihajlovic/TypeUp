@@ -1,4 +1,4 @@
-package com.typeup.options
+package com.typeup.options.common
 
 import android.content.ComponentName
 import android.content.Context
