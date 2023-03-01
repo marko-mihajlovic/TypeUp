@@ -103,6 +103,8 @@ class SearchActivity : AppCompatActivity() {
         listView.adapter = listOfAppsAdapter
 
         listView.setOnItemClickListener { parent, _, position, _ ->
+            searchInput?.text?.clear()
+
             val element = parent.getItemAtPosition(position) as AppInfo
             SelectedAppActions.openApp(this, element)
         }
