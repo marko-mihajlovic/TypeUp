@@ -20,7 +20,7 @@ class InstalledAppsDataSourceImpl @Inject constructor(
     override fun get(): List<AppInfo> {
        val list : MutableList<AppInfo> = getInstalledApps().map { x ->
             AppInfo(
-                packageName = x.activityInfo.applicationInfo.packageName,
+                appId = x.activityInfo.applicationInfo.packageName,
                 launcherActivity = x.activityInfo.name,
                 appName = x.loadLabel(context.packageManager).toString()
             )
@@ -50,7 +50,7 @@ class InstalledAppsDataSourceImpl @Inject constructor(
     private fun getThisApp(): AppInfo {
         return AppInfo(
             appName = context.getString(R.string.app_name_label),
-            packageName = BuildConfig.APPLICATION_ID,
+            appId = BuildConfig.APPLICATION_ID,
             launcherActivity = context.getString(R.string.app_launcher_activity)
         )
     }

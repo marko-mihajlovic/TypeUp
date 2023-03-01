@@ -20,7 +20,7 @@ object SelectedAppActions {
 
     fun openApp(context: Context, appInfo: AppInfo) {
         val name = ComponentName(
-            appInfo.packageName,
+            appInfo.appId,
             appInfo.launcherActivity
         )
         val i = Intent(Intent.ACTION_MAIN)
@@ -40,8 +40,8 @@ object SelectedAppActions {
                 dialog.cancel()
 
                 when (x) {
-                    Item.INFO.positionInList -> openAppInfo(context, appInfo.packageName)
-                    Item.GP.positionInList -> openInGP(context, appInfo.packageName)
+                    Item.INFO.positionInList -> openAppInfo(context, appInfo.appId)
+                    Item.GP.positionInList -> openInGP(context, appInfo.appId)
                     else -> {}
                 }
             }

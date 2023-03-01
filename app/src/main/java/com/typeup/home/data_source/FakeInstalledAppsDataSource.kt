@@ -7,12 +7,12 @@ class FakeInstalledAppsDataSource : InstalledAppsDataSource {
     override fun get(): List<AppInfo> {
         return listOf(
             AppInfo(
-                packageName = "com.example.app",
+                appId = "com.example.app",
                 launcherActivity = "com.example.app.SplashActivity",
                 appName = "Some App"
             ),
             AppInfo(
-                packageName = "com.different.app",
+                appId = "com.different.app",
                 launcherActivity = "com.package.app.deep.Activity",
                 appName = "App2"
             ),
@@ -32,7 +32,7 @@ class FakeInstalledAppsDataSource : InstalledAppsDataSource {
 
     private fun getSingleAppInfo(appName: String): AppInfo {
         return AppInfo(
-            packageName = "com.example.app",
+            appId = "com.example.app",
             launcherActivity = "com.example.app.Activity",
             appName = appName
         )
