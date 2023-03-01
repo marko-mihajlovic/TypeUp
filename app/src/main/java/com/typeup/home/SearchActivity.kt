@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -41,7 +40,7 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_search)
 
         searchInput = findViewById(R.id.searchInput)
         msgTxt = findViewById(R.id.msgTxt)

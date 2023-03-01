@@ -15,7 +15,7 @@ object MaxShownItems {
     public const val default = 3
 
     fun showDialog(context: Context, onRefresh: () -> Unit) {
-        val dialogView = AppUtil.getInflater(context).inflate(R.layout.number_picker_dialog, null)
+        val dialogView = AppUtil.getInflater(context).inflate(R.layout.layout_number_picker, null)
         val numPicker = dialogView.findViewById<NumberPicker>(R.id.dialog_number_picker)
         numPicker.maxValue = max
         numPicker.minValue = min

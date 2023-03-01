@@ -36,7 +36,7 @@ class ListOfAppsAdapter(
         var v = view
 
         if (v == null)
-            v = inflater.inflate(R.layout.row_app_info, parent, false)
+            v = inflater.inflate(R.layout.item_app_row, parent, false)
 
 
         v?.findViewById<TextView>(R.id.nameItem)?.text = getItem(position).appName

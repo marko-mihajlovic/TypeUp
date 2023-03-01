@@ -3,8 +3,8 @@
     <string name="app_name"> </string>
     <string name="app_name_label">TypeUp</string>
     <string name="app_launcher_activity">com.typeup.home.SearchActivity</string>
+    <string name="app_name_long">TypeUp - Search installed apps</string>
 
-    <string name="app_name_long">TypeUp - Minimalistic App Search Tool</string>
     <string name="search_apps">Search apps…</string>
     <string name="accept">Accept</string>
     <string name="privacyPolicyTxt">Privacy Policy</string>
