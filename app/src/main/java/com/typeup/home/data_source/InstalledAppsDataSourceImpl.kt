@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Build
+import com.typeup.BuildConfig
+import com.typeup.R
 import com.typeup.home.model.AppInfo
 import javax.inject.Inject
 
@@ -16,13 +18,17 @@ class InstalledAppsDataSourceImpl @Inject constructor(
 ) : InstalledAppsDataSource {
 
     override fun get(): List<AppInfo> {
-        return getInstalledApps().map { x ->
+       val list : MutableList<AppInfo> = getInstalledApps().map { x ->
             AppInfo(
                 packageName = x.activityInfo.applicationInfo.packageName,
                 launcherActivity = x.activityInfo.name,
                 appName = x.loadLabel(context.packageManager).toString()
             )
-        }
+        }.toMutableList()
+
+        list.add(getThisApp())
+
+        return list
     }
 
     private fun getInstalledApps(): List<ResolveInfo> {
@@ -41,4 +47,11 @@ class InstalledAppsDataSourceImpl @Inject constructor(
         }
     }
 
+    private fun getThisApp(): AppInfo {
+        return AppInfo(
+            appName = context.getString(R.string.app_name_label),
+            packageName = BuildConfig.APPLICATION_ID,
+            launcherActivity = context.getString(R.string.app_launcher_activity)
+        )
+    }
 }
