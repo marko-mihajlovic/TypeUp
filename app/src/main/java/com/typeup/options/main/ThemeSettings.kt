@@ -19,15 +19,15 @@ object ThemeSettings {
         var selectedItem = getSavedTheme(context).positionInList
 
         AlertDialog.Builder(context, R.style.Dialog)
-            .setTitle(context.getString(R.string.chooseThemeTitle))
+            .setTitle(R.string.chooseThemeTitle)
             .setSingleChoiceItems(R.array.theme_settings, selectedItem) { _, pos ->
                 selectedItem = pos
             }
-            .setPositiveButton(context.getString(R.string.saveTxt)) { dialog, _ ->
+            .setPositiveButton(R.string.saveTxt) { dialog, _ ->
                 dialog.cancel()
                 setNewTheme(context, selectedItem)
             }
-            .setNegativeButton(context.getString(R.string.cancelTxt)) { dialog, _ ->
+            .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
                 dialog.cancel()
             }
             .show()

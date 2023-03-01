@@ -16,7 +16,7 @@ object MainOptions {
 
     fun showDialog(context: Context, onRefresh: () -> Unit) {
         AlertDialog.Builder(context, R.style.Dialog)
-            .setTitle(context.getString(R.string.menuOptionsTitle))
+            .setTitle(R.string.menuOptionsTitle)
             .setItems(R.array.options) { dialog, x ->
                 dialog.cancel()
 
@@ -28,7 +28,7 @@ object MainOptions {
                     else -> {}
                 }
             }
-            .setNegativeButton(context.getString(R.string.cancelTxt)) { dialog, _ ->
+            .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
                 dialog.cancel()
             }
             .show()

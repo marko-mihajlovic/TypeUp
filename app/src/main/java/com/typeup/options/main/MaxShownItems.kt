@@ -24,15 +24,15 @@ object MaxShownItems {
         numPicker.value = getMaxItems(context)
 
         AlertDialog.Builder(context, R.style.Dialog)
-            .setTitle(context.getString(R.string.numPickerTxt))
+            .setTitle(R.string.numPickerTxt)
             .setView(dialogView)
-            .setPositiveButton(context.getString(R.string.saveTxt)) { dialog, _ ->
+            .setPositiveButton(R.string.saveTxt) { dialog, _ ->
                 dialog.cancel()
 
                 setMaxItems(context, numPicker.value)
                 onRefresh()
             }
-            .setNegativeButton(context.getString(R.string.cancelTxt)) { dialog, _ ->
+            .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
                 dialog.cancel()
             }
             .show()
