@@ -14,7 +14,7 @@ object MaxShownItems {
     private const val max = 5
     public const val default = 3
 
-    fun showDialog(context: Context) {
+    fun showDialog(context: Context, onRefresh: () -> Unit) {
         val dialogView = AppUtil.getInflater(context).inflate(R.layout.number_picker_dialog, null)
         val numPicker = dialogView.findViewById<NumberPicker>(R.id.dialog_number_picker)
         numPicker.maxValue = max
@@ -24,11 +24,13 @@ object MaxShownItems {
         numPicker.value = getMaxItems(context)
 
         AlertDialog.Builder(context, R.style.Dialog)
-            .setMessage(context.getString(R.string.numPickerTxt))
+            .setTitle(context.getString(R.string.numPickerTxt))
             .setView(dialogView)
             .setPositiveButton(context.getString(R.string.saveTxt)) { dialog, _ ->
-                setMaxItems(context, numPicker.value)
                 dialog.cancel()
+
+                setMaxItems(context, numPicker.value)
+                onRefresh()
             }
             .setNegativeButton(context.getString(R.string.cancelTxt)) { dialog, _ ->
                 dialog.cancel()
@@ -37,7 +39,7 @@ object MaxShownItems {
     }
 
     private fun setMaxItems(context: Context, i: Int) {
-        SharedPref.edit(context).putInt(maxItemsKey, i).apply()
+        SharedPref.edit(context).putInt(maxItemsKey, i).commit()
     }
 
     fun getMaxItems(context: Context): Int {

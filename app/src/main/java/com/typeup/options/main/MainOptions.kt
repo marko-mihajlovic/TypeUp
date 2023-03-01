@@ -22,7 +22,7 @@ object MainOptions {
 
                 when (x) {
                     Item.THEME.positionInList -> ThemeSettings.showDialog(context)
-                    Item.MAX_NUM.positionInList -> MaxShownItems.showDialog(context)
+                    Item.MAX_NUM.positionInList -> MaxShownItems.showDialog(context, onRefresh)
                     Item.REFRESH.positionInList -> onRefresh()
                     Item.MORE.positionInList -> MoreOptions.showDialog(context)
                     else -> {}
