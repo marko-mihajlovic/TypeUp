@@ -8,30 +8,27 @@
     <string name="menu">menu</string>
     <string name="ok">OK</string>
 
-    <string name="unableToOpen">Unable to open App</string>
+    <string name="unableToOpen">Unable to open selected app</string>
     <string name="noResultsTxt">No results found.</string>
 
-    <string name="numPickerTitle">Change max number of displayed apps</string>
-    <string name="numPickerLongTxt">More apps in the list means more distraction, so we prefer to set this value to less than 3. In that way, our brain will stay focused on the app that we actually wanted to open.</string>
-    <string name="setTxt">Set</string>
+    <string name="numPickerTxt">Change max number of displayed apps</string>
+    <string name="saveTxt">Save</string>
     <string name="cancelTxt">Cancel</string>
     <string name="menuOptionsTitle">Options</string>
     <string name="menuMoreOptionsTitle">More options</string>
     <string name="chooseThemeTitle">Choose theme</string>
 
     <string name="featureFeedbackUrl" tools:ignore="Typos">https://docs.google.com/forms/d/e/1FAIpQLSdL6XDyBNedZhVXMOUzTHdFG0qHTrzoJIYbsB6XLWDMPmWp1A/viewform</string>
-    <string name="donateUrl">https://www.paypal.com/paypalme/fybriz</string>
 
     <array name="options">
-        <item>Max num of items</item>
+        <item>Max items</item>
         <item>Theme</item>
         <item>Refresh</item>
-        <item>More</item>
+        <item>More…</item>
     </array>
 
     <array name="options_more">
-        <item>Donate</item>
-        <item>Feedback | Feature request</item>
+        <item>Feedback</item>
         <item>@string/privacyPolicyTxt</item>
         <item>Share app link</item>
     </array>

@@ -23,7 +23,7 @@ object ThemeSettings {
             .setSingleChoiceItems(R.array.theme_settings, selectedItem) { _, pos ->
                 selectedItem = pos
             }
-            .setPositiveButton(context.getString(R.string.setTxt)) { dialog, _ ->
+            .setPositiveButton(context.getString(R.string.saveTxt)) { dialog, _ ->
                 dialog.cancel()
                 setNewTheme(context, selectedItem)
             }

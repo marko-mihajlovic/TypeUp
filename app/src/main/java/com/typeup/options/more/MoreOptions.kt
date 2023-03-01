@@ -9,10 +9,9 @@ import com.typeup.util.LinkUtil
 object MoreOptions {
 
     private enum class Item(val positionInList: Int) {
-        DONATE(0),
-        FEATURE_FEEDBACK(1),
-        POLICY(2),
-        SHARE(3),
+        FEATURE_FEEDBACK(0),
+        POLICY(1),
+        SHARE(2),
     }
 
     fun showDialog(context: Context) {
@@ -27,10 +26,6 @@ object MoreOptions {
                     Item.FEATURE_FEEDBACK.positionInList -> LinkUtil.openUrl(
                         context,
                         context.getString(R.string.featureFeedbackUrl)
-                    )
-                    Item.DONATE.positionInList -> LinkUtil.openUrl(
-                        context,
-                        context.getString(R.string.donateUrl)
                     )
                     else -> {}
                 }

@@ -93,7 +93,7 @@ class SearchActivity : AppCompatActivity() {
             viewModel.searchApps(text?.toString()?.trim()?.lowercase() ?: "")
         }
 
-        findViewById<ImageView>(R.id.optionsBtn)?.setOnClickListener {
+        findViewById<View>(R.id.optionsBtn)?.setOnClickListener {
             MainOptions.showDialog(this, ::refreshSearch)
         }
     }
