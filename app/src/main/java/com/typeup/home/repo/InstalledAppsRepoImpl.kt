@@ -19,7 +19,7 @@ class InstalledAppsRepoImpl @Inject constructor(
 
     private var apps: List<AppInfo> = emptyList()
 
-    public override fun get(refresh: Boolean): Flow<List<AppInfo>> {
+    override fun get(refresh: Boolean): Flow<List<AppInfo>> {
         return flow {
             if (apps.isEmpty() || refresh) {
                 val cache = getCachedApps()

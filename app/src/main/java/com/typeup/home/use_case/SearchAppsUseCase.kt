@@ -17,7 +17,7 @@ class SearchAppsUseCase @Inject constructor(
         refresh: Boolean = false
     ): Flow<SearchAppsUiState> {
         return flow {
-            repo.get(refresh).collect() { x ->
+            repo.get(refresh).collect { x ->
                 emit(getUiState(x, filterText))
             }
         }

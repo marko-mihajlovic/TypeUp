@@ -18,7 +18,7 @@ class InstalledAppsDataSourceImpl @Inject constructor(
 ) : InstalledAppsDataSource {
 
     override fun get(): List<AppInfo> {
-       val list : MutableList<AppInfo> = getInstalledApps().map { x ->
+        val list: MutableList<AppInfo> = getInstalledApps().map { x ->
             AppInfo(
                 appId = x.activityInfo.applicationInfo.packageName,
                 launcherActivity = x.activityInfo.name,
