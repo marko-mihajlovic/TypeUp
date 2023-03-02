@@ -1,7 +1,7 @@
 package com.typeup.di
 
 import android.content.Context
-import com.typeup.search_apps.list.AppsListViewAdapter
+import com.typeup.search_apps.ui.list.AppsListViewAdapter
 import com.typeup.util.AppUtil
 import dagger.Module
 import dagger.Provides

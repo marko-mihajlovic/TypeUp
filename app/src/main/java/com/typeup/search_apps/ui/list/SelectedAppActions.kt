@@ -1,4 +1,4 @@
-package com.typeup.search_apps.list
+package com.typeup.search_apps.ui.list
 
 import android.content.ComponentName
 import android.content.Context
