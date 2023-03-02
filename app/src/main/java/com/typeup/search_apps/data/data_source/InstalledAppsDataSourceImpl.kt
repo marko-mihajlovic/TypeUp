@@ -1,4 +1,4 @@
-package com.typeup.home.data_source
+package com.typeup.search_apps.data.data_source
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.content.pm.ResolveInfo
 import android.os.Build
 import com.typeup.BuildConfig
 import com.typeup.R
-import com.typeup.home.model.AppInfo
+import com.typeup.search_apps.data.model.AppInfo
 import javax.inject.Inject
 
 /**

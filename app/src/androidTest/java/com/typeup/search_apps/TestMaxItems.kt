@@ -1,4 +1,4 @@
-package com.typeup.home
+package com.typeup.search_apps
 
 import android.view.InputDevice
 import android.view.MotionEvent
@@ -13,6 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.R
 import com.typeup.options.main.MaxShownItems
+import com.typeup.util.CustomListViewMatcher.withListSize
 import com.typeup.util.SharedPref
 import org.junit.Test
 import org.junit.runner.RunWith

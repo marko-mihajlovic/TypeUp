@@ -1,4 +1,4 @@
-package com.typeup.options.common
+package com.typeup.search_apps.list
 
 import android.content.ComponentName
 import android.content.Context
@@ -7,7 +7,7 @@ import android.net.Uri
 import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
-import com.typeup.home.model.AppInfo
+import com.typeup.search_apps.data.model.AppInfo
 import com.typeup.util.AppUtil
 import com.typeup.util.LinkUtil
 

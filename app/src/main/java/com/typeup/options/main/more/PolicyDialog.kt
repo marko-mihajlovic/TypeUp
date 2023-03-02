@@ -1,4 +1,4 @@
-package com.typeup.options.common
+package com.typeup.options.main.more
 
 import android.content.Context
 import android.content.SharedPreferences

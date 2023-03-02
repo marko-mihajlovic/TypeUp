@@ -1,9 +1,9 @@
 package com.typeup.di
 
-import com.typeup.home.data_source.InstalledAppsDataSource
-import com.typeup.home.data_source.InstalledAppsDataSourceImpl
-import com.typeup.home.repo.InstalledAppsRepo
-import com.typeup.home.repo.InstalledAppsRepoImpl
+import com.typeup.search_apps.data.data_source.InstalledAppsDataSource
+import com.typeup.search_apps.data.data_source.InstalledAppsDataSourceImpl
+import com.typeup.search_apps.data.repo.InstalledAppsRepo
+import com.typeup.search_apps.data.repo.InstalledAppsRepoImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

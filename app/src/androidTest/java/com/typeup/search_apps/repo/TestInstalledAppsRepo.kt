@@ -1,8 +1,9 @@
-package com.typeup.home.repo
+package com.typeup.search_apps.repo
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.typeup.home.data_source.FakeInstalledAppsDataSource
+import com.typeup.search_apps.data.data_source.FakeInstalledAppsDataSource
+import com.typeup.search_apps.data.repo.InstalledAppsRepoImpl
 import com.typeup.util.SharedPref
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.firstOrNull

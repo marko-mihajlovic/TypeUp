@@ -1,9 +1,11 @@
-package com.typeup.options.main
+package com.typeup.options
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
-import com.typeup.options.more.MoreOptions
+import com.typeup.options.main.MaxShownItems
+import com.typeup.options.main.MoreOptions
+import com.typeup.options.main.ThemeSettings
 
 object MainOptions {
 
@@ -21,8 +23,8 @@ object MainOptions {
                 dialog.cancel()
 
                 when (x) {
-                    Item.THEME.positionInList -> ThemeSettings.showDialog(context)
                     Item.MAX_NUM.positionInList -> MaxShownItems.showDialog(context, onRefresh)
+                    Item.THEME.positionInList -> ThemeSettings.showDialog(context)
                     Item.REFRESH.positionInList -> onRefresh()
                     Item.MORE.positionInList -> MoreOptions.showDialog(context)
                     else -> {}

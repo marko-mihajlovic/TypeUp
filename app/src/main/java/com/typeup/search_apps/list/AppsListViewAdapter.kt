@@ -1,4 +1,4 @@
-package com.typeup.adapter
+package com.typeup.search_apps.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,13 +6,12 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.typeup.R
-import com.typeup.home.model.AppInfo
+import com.typeup.search_apps.data.model.AppInfo
 
-class ListOfAppsAdapter(
+class AppsListViewAdapter(
     private val inflater: LayoutInflater,
     private var appInfoList: List<AppInfo> = listOf()
 ) : BaseAdapter() {
-
 
     fun updateAdapter(list: List<AppInfo>) {
         appInfoList = list
@@ -31,18 +30,15 @@ class ListOfAppsAdapter(
         return position.toLong()
     }
 
-
     override fun getView(position: Int, view: View?, parent: ViewGroup): View? {
         var v = view
 
         if (v == null)
             v = inflater.inflate(R.layout.item_app_row, parent, false)
 
-
         v?.findViewById<TextView>(R.id.nameItem)?.text = getItem(position).appName
 
         return v
     }
-
 
 }

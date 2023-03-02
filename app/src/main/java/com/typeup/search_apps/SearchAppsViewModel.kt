@@ -1,9 +1,9 @@
-package com.typeup.home
+package com.typeup.search_apps
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.typeup.home.model.SearchAppsUiState
-import com.typeup.home.use_case.SearchAppsUseCase
+import com.typeup.search_apps.data.SearchAppsUseCase
+import com.typeup.search_apps.data.model.SearchAppsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

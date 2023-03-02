@@ -1,9 +1,9 @@
-package com.typeup.home.repo
+package com.typeup.search_apps.data.repo
 
 import android.content.Context
-import com.typeup.home.data_source.InstalledAppsDataSource
-import com.typeup.home.model.AppInfo
 import com.typeup.options.main.MaxShownItems
+import com.typeup.search_apps.data.data_source.InstalledAppsDataSource
+import com.typeup.search_apps.data.model.AppInfo
 import com.typeup.util.SharedPref
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -1,4 +1,4 @@
-package com.typeup.home
+package com.typeup.search_apps
 
 import android.os.Bundle
 import android.text.Editable
@@ -14,13 +14,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.typeup.R
-import com.typeup.adapter.ListOfAppsAdapter
-import com.typeup.home.model.AppInfo
-import com.typeup.home.model.SearchAppsUiState
-import com.typeup.options.common.PolicyDialog
-import com.typeup.options.common.SelectedAppActions
-import com.typeup.options.main.MainOptions
+import com.typeup.options.MainOptions
 import com.typeup.options.main.ThemeSettings
+import com.typeup.options.main.more.PolicyDialog
+import com.typeup.search_apps.data.model.AppInfo
+import com.typeup.search_apps.data.model.SearchAppsUiState
+import com.typeup.search_apps.list.AppsListViewAdapter
+import com.typeup.search_apps.list.SelectedAppActions
 import com.typeup.util.KeyboardUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -32,7 +32,7 @@ class SearchActivity : AppCompatActivity() {
     private val viewModel: SearchAppsViewModel by viewModels()
 
     @Inject
-    lateinit var listOfAppsAdapter: ListOfAppsAdapter
+    lateinit var appsListViewAdapter: AppsListViewAdapter
 
     private var searchInput: EditText? = null
     private var msgTxt: TextView? = null
@@ -56,15 +56,15 @@ class SearchActivity : AppCompatActivity() {
                     when (x) {
                         is SearchAppsUiState.Error -> {
                             updateMsgTxt(true, x.msg)
-                            listOfAppsAdapter.updateAdapter(emptyList())
+                            appsListViewAdapter.updateAdapter(emptyList())
                         }
                         is SearchAppsUiState.Loading -> {
                             updateMsgTxt(true, x.msg)
-                            listOfAppsAdapter.updateAdapter(emptyList())
+                            appsListViewAdapter.updateAdapter(emptyList())
                         }
                         is SearchAppsUiState.Success -> {
                             updateMsgTxt(false)
-                            listOfAppsAdapter.updateAdapter(x.list)
+                            appsListViewAdapter.updateAdapter(x.list)
                         }
                     }
                 }
@@ -99,7 +99,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun confListViewAndAdapter() {
         val listView: ListView = findViewById(R.id.listView)
-        listView.adapter = listOfAppsAdapter
+        listView.adapter = appsListViewAdapter
 
         listView.setOnItemClickListener { parent, _, position, _ ->
             searchInput?.text?.clear()

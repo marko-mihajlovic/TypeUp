@@ -21,7 +21,7 @@
         android:theme="@style/TypeUpTheme">
 
         <activity
-            android:name=".home.SearchActivity"
+            android:name=".search_apps.SearchActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/TypeUpTheme"

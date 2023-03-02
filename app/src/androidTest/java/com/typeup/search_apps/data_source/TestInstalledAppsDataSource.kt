@@ -1,7 +1,8 @@
-package com.typeup.home.data_source
+package com.typeup.search_apps.data_source
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.typeup.search_apps.data.data_source.InstalledAppsDataSourceImpl
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
 import org.junit.Test

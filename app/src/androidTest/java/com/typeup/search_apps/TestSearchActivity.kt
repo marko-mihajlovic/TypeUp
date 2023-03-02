@@ -1,7 +1,5 @@
-package com.typeup.home
+package com.typeup.search_apps
 
-import android.view.View
-import android.widget.ListView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -12,11 +10,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.R
 import com.typeup.options.main.MaxShownItems
+import com.typeup.util.CustomListViewMatcher.withListSize
 import com.typeup.util.SharedPref
-import org.hamcrest.Description
-import org.hamcrest.Matcher
 import org.hamcrest.Matchers.*
-import org.hamcrest.TypeSafeMatcher
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -63,16 +59,4 @@ class TestSearchActivity {
 
     }
 
-}
-
-fun withListSize(size: Int): Matcher<View> {
-    return object : TypeSafeMatcher<View>() {
-        override fun matchesSafely(view: View): Boolean {
-            return (view as ListView).count == size
-        }
-
-        override fun describeTo(description: Description) {
-            description.appendText("ListView should have $size items")
-        }
-    }
 }

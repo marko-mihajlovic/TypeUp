@@ -7,7 +7,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Instrumented test, which will execute on an Android device.
+ * Animations must be disabled before running any test!
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */

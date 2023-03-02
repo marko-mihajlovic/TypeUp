@@ -1,9 +1,9 @@
-package com.typeup.options.more
+package com.typeup.options.main
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
-import com.typeup.options.common.PolicyDialog
+import com.typeup.options.main.more.PolicyDialog
 import com.typeup.util.LinkUtil
 
 object MoreOptions {

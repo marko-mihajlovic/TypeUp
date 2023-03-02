@@ -1,6 +1,6 @@
-package com.typeup.home.repo
+package com.typeup.search_apps.data.repo
 
-import com.typeup.home.model.AppInfo
+import com.typeup.search_apps.data.model.AppInfo
 import kotlinx.coroutines.flow.Flow
 
 interface InstalledAppsRepo {

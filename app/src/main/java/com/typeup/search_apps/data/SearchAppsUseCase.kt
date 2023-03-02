@@ -1,8 +1,8 @@
-package com.typeup.home.use_case
+package com.typeup.search_apps.data
 
-import com.typeup.home.model.AppInfo
-import com.typeup.home.model.SearchAppsUiState
-import com.typeup.home.repo.InstalledAppsRepo
+import com.typeup.search_apps.data.model.AppInfo
+import com.typeup.search_apps.data.model.SearchAppsUiState
+import com.typeup.search_apps.data.repo.InstalledAppsRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

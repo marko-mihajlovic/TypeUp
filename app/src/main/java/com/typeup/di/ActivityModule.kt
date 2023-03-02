@@ -1,7 +1,7 @@
 package com.typeup.di
 
 import android.content.Context
-import com.typeup.adapter.ListOfAppsAdapter
+import com.typeup.search_apps.list.AppsListViewAdapter
 import com.typeup.util.AppUtil
 import dagger.Module
 import dagger.Provides
@@ -14,10 +14,10 @@ import dagger.hilt.android.qualifiers.ActivityContext
 object ActivityModule {
 
     @Provides
-    fun provideListOfAppsAdapter(
+    fun provideAppsListViewAdapter(
         @ActivityContext context: Context
-    ): ListOfAppsAdapter {
-        return ListOfAppsAdapter(AppUtil.getInflater(context))
+    ): AppsListViewAdapter {
+        return AppsListViewAdapter(AppUtil.getInflater(context))
     }
 
 }

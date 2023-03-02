@@ -1,4 +1,4 @@
-package com.typeup.home.model
+package com.typeup.search_apps.data.model
 
 import kotlinx.serialization.Serializable
 
