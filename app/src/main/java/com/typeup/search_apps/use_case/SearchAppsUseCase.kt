@@ -30,7 +30,17 @@ class SearchAppsUseCase @Inject constructor(
         if (list.isEmpty())
             return SearchAppsUiState.Loading()
 
-        var filteredList = list
+        var filteredList = filterAndSortApps(list, filterString)
+        filteredList = capList(filteredList)
+
+        if (filteredList.isEmpty())
+            return SearchAppsUiState.Error("No results found.")
+
+        return SearchAppsUiState.Success(filteredList)
+    }
+
+    private fun filterAndSortApps(list: List<AppInfo>, filterString: String): List<AppInfo> {
+        return list
             .filter { x ->
                 x.appNameLowercase.contains(filterString)
             }
@@ -41,13 +51,10 @@ class SearchAppsUseCase @Inject constructor(
                     x.appNameLowercase.length
                 }
             )
+    }
 
-        filteredList = filteredList.subList(0, min(filteredList.size, repo.getMaxSize()))
-
-        if (filteredList.isEmpty())
-            return SearchAppsUiState.Error("No results found.")
-
-        return SearchAppsUiState.Success(filteredList)
+    private fun capList(list: List<AppInfo>): List<AppInfo> {
+        return list.subList(0, min(list.size, repo.getMaxSize()))
     }
 
 }
