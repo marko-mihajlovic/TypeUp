@@ -11,7 +11,7 @@ object MaxShownItems {
 
     private const val maxItemsKey = "maxSizeOfItems"
     private const val min = 1
-    private const val max = 5
+    const val max = 5
     const val default = 3
 
     fun showDialog(context: Context, onRefresh: () -> Unit) {

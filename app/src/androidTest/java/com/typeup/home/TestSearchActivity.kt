@@ -58,6 +58,7 @@ class TestSearchActivity {
             onView(searchInput).perform(typeText("a"))
             onView(listView).check(matches(withListSize(MaxShownItems.default)))
 
+            it.close()
         }
 
         ActivityScenario.launch(SearchActivity::class.java).use {
@@ -65,6 +66,7 @@ class TestSearchActivity {
             onView(searchInput).perform(typeText("o"))
             onView(listView).check(matches(withListSize(MaxShownItems.default)))
 
+            it.close()
         }
 
     }
