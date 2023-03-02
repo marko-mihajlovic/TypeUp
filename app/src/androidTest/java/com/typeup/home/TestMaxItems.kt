@@ -22,6 +22,12 @@ import org.junit.runner.RunWith
 class TestMaxItems {
 
     private fun onAcceptBtn() = onView(withText("Accept"))
+    private fun onSearchInput() = onView(withId(R.id.searchInput))
+    private fun onListView() = onView(withId(R.id.listView))
+    private fun onOptionsBtn() = onView(withId(R.id.optionsBtn))
+    private fun onMaxItemsBtn() = onView(withText(R.string.maxItemsTxt))
+    private fun onNumPicker() = onView(withId(R.id.dialog_number_picker))
+    private fun onSaveBtn() = onView(withText(R.string.saveTxt))
 
     @Test
     fun test_max_items(): Unit = runBlocking {
@@ -32,32 +38,22 @@ class TestMaxItems {
         ActivityScenario.launch(SearchActivity::class.java).use {
             onAcceptBtn().perform(ViewActions.click())
 
-            val searchInput = withId(R.id.searchInput)
-            val listView = withId(R.id.listView)
-            val optionsBtn = withId(R.id.optionsBtn)
-
-            onView(searchInput).perform(ViewActions.typeText("o"))
+            onSearchInput().perform(ViewActions.typeText("o"))
             delay(100)
-            onView(listView).check(matches(withListSize(MaxShownItems.default)))
+            onListView().check(matches(withListSize(MaxShownItems.default)))
 
-            onView(optionsBtn).perform(ViewActions.click())
+            onOptionsBtn().perform(ViewActions.click())
+            onMaxItemsBtn().perform(ViewActions.click())
 
-            val maxItemsOption = withText(R.string.maxItemsTxt)
-            onView(maxItemsOption).perform(ViewActions.click())
-
-
-            val picker = withId(R.id.dialog_number_picker)
-            onView(picker)
+            onNumPicker()
                 .check(matches(isDisplayed()))
                 .perform(clickTopCentre)
 
-            val saveBtn = withText(R.string.saveTxt)
-            onView(saveBtn)
+            onSaveBtn()
                 .check(matches(isDisplayed()))
                 .perform(ViewActions.click())
 
-            onView(listView)
-                .check(matches(withListSize(MaxShownItems.default - 1)))
+            onListView().check(matches(withListSize(MaxShownItems.default - 1)))
 
             it.close()
         }
