@@ -14,8 +14,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.R
 import com.typeup.options.main.MaxShownItems
 import com.typeup.util.SharedPref
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
 import kotlin.math.abs
@@ -32,7 +30,7 @@ class TestMaxItems {
     private fun onSaveBtn() = onView(withText(R.string.saveTxt))
 
     @Test
-    fun test_max_items(): Unit = runBlocking {
+    fun test_max_items() {
 
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         SharedPref.edit(context).clear().commit()
@@ -41,8 +39,6 @@ class TestMaxItems {
             onAcceptBtn().perform(ViewActions.click())
 
             onSearchInput().perform(ViewActions.typeText("o"))
-            delay(100)
-
             onListView().check(matches(withListSize(MaxShownItems.default)))
 
             changeMaxItems(delta = -1, expected = MaxShownItems.default - 1)
