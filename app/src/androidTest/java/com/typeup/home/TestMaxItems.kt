@@ -4,6 +4,7 @@ import android.view.InputDevice
 import android.view.MotionEvent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.*
 import androidx.test.espresso.action.ViewActions.actionWithAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -17,6 +18,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.math.abs
 
 @RunWith(AndroidJUnit4::class)
 class TestMaxItems {
@@ -40,45 +42,76 @@ class TestMaxItems {
 
             onSearchInput().perform(ViewActions.typeText("o"))
             delay(100)
+
             onListView().check(matches(withListSize(MaxShownItems.default)))
 
-            onOptionsBtn().perform(ViewActions.click())
-            onMaxItemsBtn().perform(ViewActions.click())
+            changeMaxItems(delta = -1, expected = MaxShownItems.default - 1)
+            changeMaxItems(delta = 1, expected = MaxShownItems.default)
+            changeMaxItems(delta = 1, expected = MaxShownItems.default + 1)
+            changeMaxItems(delta = -1, expected = MaxShownItems.default)
 
-            onNumPicker()
-                .check(matches(isDisplayed()))
-                .perform(clickTopCentre)
-
-            onSaveBtn()
-                .check(matches(isDisplayed()))
-                .perform(ViewActions.click())
-
-            onListView().check(matches(withListSize(MaxShownItems.default - 1)))
+            changeMaxItems(delta = MaxShownItems.max, expected = MaxShownItems.max)
+            changeMaxItems(delta = -MaxShownItems.max, expected = MaxShownItems.min)
 
             it.close()
         }
 
     }
 
-    private val clickTopCentre =
-        actionWithAssertions(
-            GeneralClickAction(
-                Tap.SINGLE,
-                GeneralLocation.TOP_CENTER,
-                Press.FINGER,
-                InputDevice.SOURCE_UNKNOWN,
-                MotionEvent.BUTTON_PRIMARY
-            )
-        )
+    private fun changeMaxItems(delta: Int, expected: Int) {
+        if (delta > 0)
+            increaseMaxItems(delta, expected)
+        else if (delta < 0)
+            decreaseMaxItems(abs(delta), expected)
+    }
 
-    private val clickBottomCentre =
-        actionWithAssertions(
+    private fun decreaseMaxItems(times: Int, expected: Int) {
+        openMaxItemsSettingsChangeValueAndAssertExpected(
+            GeneralLocation.TOP_CENTER,
+            times,
+            expected
+        )
+    }
+
+    private fun increaseMaxItems(times: Int, expected: Int) {
+        openMaxItemsSettingsChangeValueAndAssertExpected(
+            GeneralLocation.BOTTOM_CENTER,
+            times,
+            expected
+        )
+    }
+
+    private fun openMaxItemsSettingsChangeValueAndAssertExpected(
+        location: GeneralLocation,
+        repeat: Int,
+        expected: Int
+    ) {
+        onOptionsBtn().perform(ViewActions.click())
+        onMaxItemsBtn().perform(ViewActions.click())
+
+        repeat(repeat) {
+            onNumPicker()
+                .check(matches(isDisplayed()))
+                .perform(clickAtCustomLocation(location))
+        }
+
+        onSaveBtn()
+            .check(matches(isDisplayed()))
+            .perform(ViewActions.click())
+
+        onListView().check(matches(withListSize(expected)))
+    }
+
+    private fun clickAtCustomLocation(coordinatesProvider: CoordinatesProvider): ViewAction {
+        return actionWithAssertions(
             GeneralClickAction(
                 Tap.SINGLE,
-                GeneralLocation.BOTTOM_CENTER,
+                coordinatesProvider,
                 Press.FINGER,
                 InputDevice.SOURCE_UNKNOWN,
                 MotionEvent.BUTTON_PRIMARY
             )
         )
+    }
+
 }

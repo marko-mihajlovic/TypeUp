@@ -10,7 +10,7 @@ import com.typeup.util.SharedPref
 object MaxShownItems {
 
     private const val maxItemsKey = "maxSizeOfItems"
-    private const val min = 1
+    const val min = 1
     const val max = 5
     const val default = 3
 
