@@ -11,23 +11,20 @@
 
     <application
         android:name=".TypeUpApp"
-        android:allowBackup="true"
         android:description="@string/app_name_long"
-        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/TypeUpTheme">
 
         <activity
             android:name=".search_apps.SearchActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/TypeUpTheme"
 
             android:windowSoftInputMode="stateAlwaysVisible"
-            tools:ignore="LockedOrientationActivity">
+            tools:ignore="LockedOrientationActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

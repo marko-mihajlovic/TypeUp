@@ -1,7 +1,6 @@
 package com.typeup.options.main
 
 import android.content.Context
-import android.widget.NumberPicker
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
 import com.typeup.databinding.LayoutNumberPickerBinding
