@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.contains
+import org.hamcrest.Matchers.isA
 import org.junit.Test
 
 class TestSearchAppsUseCase {
@@ -39,7 +40,7 @@ class TestSearchAppsUseCase {
         }
     }
 
-    private suspend fun test(){
+    private suspend fun test() {
         val searchAppsUseCase = SearchAppsUseCase(FakeAppsRepo(5))
 
         val apps1 = searchAppsUseCase("bacon").lastOrNull()
