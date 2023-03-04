@@ -42,13 +42,13 @@ class SearchAppsUseCase @Inject constructor(
     private fun filterAndSortApps(list: List<AppInfo>, filterString: String): List<AppInfo> {
         return list
             .filter { x ->
-                x.appNameLowercase.contains(filterString)
+                x.appName.contains(filterString, true)
             }
             .sortedWith(
                 compareByDescending<AppInfo> { x ->
-                    x.appNameLowercase.startsWith(filterString)
+                    x.appName.startsWith(filterString)
                 }.thenBy { x ->
-                    x.appNameLowercase.length
+                    x.appName.length
                 }
             )
     }
