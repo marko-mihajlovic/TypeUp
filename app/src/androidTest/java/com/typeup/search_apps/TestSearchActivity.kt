@@ -1,5 +1,6 @@
 package com.typeup.search_apps
 
+import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.test.core.app.ActivityScenario
@@ -18,6 +19,7 @@ import com.typeup.options.main.MaxShownItems
 import com.typeup.util.CustomListViewMatcher.withListSize
 import com.typeup.util.SharedPref
 import org.hamcrest.Matchers.*
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -45,9 +47,7 @@ class TestSearchActivity {
             onView(searchInput).perform(typeText("gm")) // gmail
             onView(listView).check(matches(withListSize(1)))
 
-            onView(searchInput).perform(clearText())
-
-            onView(searchInput).perform(typeText("non_existent_app"))
+            onView(searchInput).perform(replaceText("non_existent_app"))
             onView(listView).check(matches(withListSize(0)))
             onView(msgTxt).check(matches(withText("No results found.")))
             onView(msgTxt).check(isCompletelyBelow(searchInput))
@@ -67,8 +67,26 @@ class TestSearchActivity {
             onData(anything()).atPosition(0).perform(click())
             val intents = Intents.getIntents()
             assertThat(intents.size, `is`(1))
-            assertThat(intents[0].action.equals(Intent.ACTION_MAIN), `is`(true))
-            assertThat(intents[0].hasCategory(Intent.CATEGORY_LAUNCHER), `is`(true))
+            assertTrue(intents[0].action.equals(Intent.ACTION_MAIN))
+            assertTrue(intents[0].hasCategory(Intent.CATEGORY_LAUNCHER))
+
+            Intents.release()
+        }
+
+        ActivityScenario.launch(SearchActivity::class.java).use {
+            Intents.init()
+
+            onView(searchInput).perform(typeText("o"))
+            onView(listView).check(matches(withListSize(MaxShownItems.default)))
+
+            onData(anything()).atPosition(0).perform(longClick())
+            onAppInfoBtn(context).perform(click())
+            val intents = Intents.getIntents()
+            assertThat(intents.size, `is`(1))
+            assertThat(
+                intents[0].action.equals(Settings.ACTION_APPLICATION_DETAILS_SETTINGS),
+                `is`(true)
+            )
 
             Intents.release()
         }
@@ -79,21 +97,7 @@ class TestSearchActivity {
             onView(searchInput).perform(typeText("typeup"))
             onData(anything()).atPosition(0).perform(click())
 
-            val appInfoBtn = onView(
-                allOf(
-                    withId(android.R.id.text1), withText(context.getString(R.string.appInfoTxt)),
-                    withParent(
-                        allOf(
-                            withId(androidx.appcompat.R.id.select_dialog_listview),
-                            withParent(withId(androidx.appcompat.R.id.contentPanel))
-                        )
-                    ),
-                    isDisplayed()
-                )
-            )
-            appInfoBtn
-                .check(matches(withText(context.getString(R.string.appInfoTxt))))
-                .perform(click())
+            onAppInfoBtn(context).perform(click())
 
             val intents = Intents.getIntents()
             assertThat(intents.size, `is`(1))
@@ -107,4 +111,17 @@ class TestSearchActivity {
 
     }
 
+    private fun onAppInfoBtn(context : Context) = onView(
+        allOf(
+            withId(android.R.id.text1),
+            withText(context.getString(R.string.appInfoTxt)),
+            withParent(
+                allOf(
+                    withId(androidx.appcompat.R.id.select_dialog_listview),
+                    withParent(withId(androidx.appcompat.R.id.contentPanel))
+                )
+            ),
+            isDisplayed()
+        )
+    )
 }
