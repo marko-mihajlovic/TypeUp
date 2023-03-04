@@ -7,14 +7,13 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.contains
-import org.hamcrest.Matchers.isA
+import org.hamcrest.Matchers.*
 import org.junit.Test
 
 class TestSearchAppsUseCase {
 
     @Test
-    fun test() = runBlocking {
+    fun basic_test() = runBlocking {
         val searchAppsUseCase = SearchAppsUseCase(FakeAppsRepo(5))
 
         assertThat(
@@ -31,6 +30,17 @@ class TestSearchAppsUseCase {
             searchAppsUseCase("app").lastOrNull(),
             isA(SearchAppsUiState.Success::class.java)
         )
+    }
+
+    @Test
+    fun test_that_order_stays_same_when_apps_are_randomly_shuffled() = runBlocking {
+        repeat(100) {
+            test()
+        }
+    }
+
+    private suspend fun test(){
+        val searchAppsUseCase = SearchAppsUseCase(FakeAppsRepo(5))
 
         val apps1 = searchAppsUseCase("bacon").lastOrNull()
         require(apps1 is SearchAppsUiState.Success)
@@ -39,7 +49,7 @@ class TestSearchAppsUseCase {
                 x.appName
             },
             contains(
-                "bacon", "abc_bacon", "salty_bacon",
+                "Bacon", "Abc_bacon", "Salty_bacon",
             )
         )
 
@@ -50,7 +60,7 @@ class TestSearchAppsUseCase {
                 x.appName
             },
             contains(
-                "abc", "abc2", "abc_bacon", "abc_johnny", "last_abc",
+                "Abc", "Abc2", "Abc_bacon", "Abc_johnny", "Last_abc",
             )
         )
     }

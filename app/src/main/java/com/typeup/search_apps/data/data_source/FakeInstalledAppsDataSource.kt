@@ -5,7 +5,7 @@ import com.typeup.search_apps.data.model.AppInfo
 class FakeInstalledAppsDataSource : InstalledAppsDataSource {
 
     override fun get(): List<AppInfo> {
-        return listOf(
+        val list = mutableListOf(
             AppInfo(
                 appId = "com.example.app",
                 launcherActivity = "com.example.app.SplashActivity",
@@ -16,18 +16,24 @@ class FakeInstalledAppsDataSource : InstalledAppsDataSource {
                 launcherActivity = "com.package.app.deep.Activity",
                 appName = "App2"
             ),
-        ) + listOf(
-            "last_abc",
-            "abc",
-            "salty_bacon",
-            "abc_bacon",
-            "bacon",
-            "bob",
-            "abc_johnny",
-            "abc2"
-        ).map { x ->
-            getSingleAppInfo(x)
-        }
+        )
+
+        list.addAll(
+            listOf(
+                "Last_abc",
+                "Abc",
+                "Salty_bacon",
+                "Abc_bacon",
+                "Bacon",
+                "Bob",
+                "Abc_johnny",
+                "Abc2"
+            ).map { x ->
+                getSingleAppInfo(x)
+            }
+        )
+
+        return list.shuffled()
     }
 
     private fun getSingleAppInfo(appName: String): AppInfo {
