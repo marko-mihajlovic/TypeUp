@@ -1,4 +1,4 @@
-package com.typeup.search_apps
+package com.typeup.search_apps.options
 
 
 import android.view.View
