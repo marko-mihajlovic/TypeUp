@@ -2,7 +2,6 @@ package com.typeup.search_apps
 
 import android.view.InputDevice
 import android.view.MotionEvent
-import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.*
@@ -11,11 +10,10 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.R
 import com.typeup.options.main.MaxShownItems
 import com.typeup.util.CustomListViewMatcher.withListSize
-import com.typeup.util.SharedPref
+import com.typeup.util.CustomTestWrappers.wrapSearchActivityTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import kotlin.math.abs
@@ -24,7 +22,6 @@ import kotlin.math.abs
 @RunWith(AndroidJUnit4::class)
 class TestMaxItems {
 
-    private fun onAcceptBtn() = onView(withText("Accept"))
     private fun onSearchInput() = onView(withId(R.id.searchInput))
     private fun onListView() = onView(withId(R.id.listView))
     private fun onOptionsBtn() = onView(withId(R.id.optionsBtn))
@@ -34,13 +31,7 @@ class TestMaxItems {
 
     @Test
     fun test_max_items() {
-
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        SharedPref.edit(context).clear().commit()
-
-        ActivityScenario.launch(SearchActivity::class.java).use {
-            onAcceptBtn().perform(ViewActions.click())
-
+        wrapSearchActivityTest {
             onSearchInput().perform(ViewActions.typeText("o"))
             onListView().check(matches(withListSize(MaxShownItems.default)))
 
@@ -51,10 +42,7 @@ class TestMaxItems {
 
             changeMaxItems(delta = MaxShownItems.max, expected = MaxShownItems.max)
             changeMaxItems(delta = -MaxShownItems.max, expected = MaxShownItems.min)
-
-            it.close()
         }
-
     }
 
     private fun changeMaxItems(delta: Int, expected: Int) {

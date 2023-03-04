@@ -2,7 +2,6 @@ package com.typeup.search_apps
 
 import android.content.Intent
 import android.provider.Settings
-import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -12,11 +11,11 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.R
 import com.typeup.options.main.MaxShownItems
 import com.typeup.util.CustomListViewMatcher.withListSize
-import com.typeup.util.SharedPref
+import com.typeup.util.CustomTestWrappers.wrapSearchActivityIntentTest
+import com.typeup.util.CustomTestWrappers.wrapSearchActivityTest
 import org.hamcrest.Matchers.*
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -28,7 +27,6 @@ class TestSearchActivity {
 
     private fun searchInput() = withId(R.id.searchInput)
 
-    private fun onAcceptBtn() = onView(withText("Accept"))
     private fun onSearchInput() = onView(searchInput())
     private fun onListView() = onView(withId(R.id.listView))
     private fun onMsgTxt() = onView(withId(R.id.msgTxt))
@@ -43,7 +41,7 @@ class TestSearchActivity {
 
     @Test
     fun test_can_perform_search() {
-        wrapTest {
+        wrapSearchActivityTest {
             onListView().check(isCompletelyBelow(searchInput()))
 
             onSearchInput().perform(typeText("gm")) // gmail
@@ -63,7 +61,7 @@ class TestSearchActivity {
 
     @Test
     fun test_launch_app_on_item_click() {
-        wrapIntentTest {
+        wrapSearchActivityIntentTest {
 
             onSearchInput().perform(typeText("o"))
             onListView().check(matches(withListSize(MaxShownItems.default)))
@@ -78,7 +76,7 @@ class TestSearchActivity {
 
     @Test
     fun test_open_app_info_through_dialog() {
-        wrapIntentTest {
+        wrapSearchActivityIntentTest {
             onSearchInput().perform(typeText("o"))
             onListView().check(matches(withListSize(MaxShownItems.default)))
 
@@ -90,7 +88,7 @@ class TestSearchActivity {
 
     @Test
     fun test_open_our_app_info() {
-        wrapIntentTest {
+        wrapSearchActivityIntentTest {
             onSearchInput().perform(typeText("typeup"))
             onData(anything()).atPosition(0).perform(click())
 
@@ -108,23 +106,5 @@ class TestSearchActivity {
         )
     }
 
-    private fun wrapTest(test: () -> Unit) {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        SharedPref.edit(context).clear().commit()
-
-        ActivityScenario.launch(SearchActivity::class.java).use {
-            onAcceptBtn().perform(click())
-
-            test()
-        }
-    }
-
-    private fun wrapIntentTest(test: () -> Unit) {
-        wrapTest {
-            Intents.init()
-            test()
-            Intents.release()
-        }
-    }
 
 }
