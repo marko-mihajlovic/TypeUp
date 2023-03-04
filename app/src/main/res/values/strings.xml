@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name"> </string>
     <string name="app_name_label">TypeUp</string>
-    <string name="app_launcher_activity">com.typeup.home.SearchActivity</string>
+    <string name="app_launcher_activity">com.typeup.search_apps.SearchActivity</string>
     <string name="app_name_long">TypeUp - Search installed apps</string>
 
     <string name="search_apps">Search apps…</string>
@@ -24,6 +24,7 @@
     <string name="featureFeedbackUrl" tools:ignore="Typos">https://docs.google.com/forms/d/e/1FAIpQLSdL6XDyBNedZhVXMOUzTHdFG0qHTrzoJIYbsB6XLWDMPmWp1A/viewform</string>
 
     <string name="maxItemsTxt">Max items</string>
+    <string name="appInfoTxt">App info</string>
 
     <array name="options">
         <item>@string/maxItemsTxt</item>
@@ -39,7 +40,7 @@
     </array>
 
     <array name="selectedAppOptions">
-        <item>App info</item>
+        <item>@string/appInfoTxt</item>
         <item>Open in Google Play</item>
     </array>
 
