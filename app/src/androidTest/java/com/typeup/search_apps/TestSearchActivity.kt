@@ -1,6 +1,5 @@
 package com.typeup.search_apps
 
-import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.test.core.app.ActivityScenario
@@ -34,16 +33,17 @@ class TestSearchActivity {
     private fun onListView() = onView(withId(R.id.listView))
     private fun onMsgTxt() = onView(withId(R.id.msgTxt))
 
+    private fun onAppInfoBtn() = onView(
+        allOf(
+            withId(android.R.id.text1),
+            withText(R.string.appInfoTxt),
+            isDisplayed()
+        )
+    )
+
     @Test
-    fun test_activity() {
-
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        SharedPref.edit(context).clear().commit()
-
-        ActivityScenario.launch(SearchActivity::class.java).use {
-
-            onAcceptBtn() .perform(click())
-
+    fun test_can_perform_search() {
+        wrapTest {
             onListView().check(isCompletelyBelow(searchInput()))
 
             onSearchInput().perform(typeText("gm")) // gmail
@@ -59,9 +59,11 @@ class TestSearchActivity {
             onSearchInput().perform(typeText("a"))
             onListView().check(matches(withListSize(MaxShownItems.default)))
         }
+    }
 
-        ActivityScenario.launch(SearchActivity::class.java).use {
-            Intents.init()
+    @Test
+    fun test_launch_app_on_item_click() {
+        wrapIntentTest {
 
             onSearchInput().perform(typeText("o"))
             onListView().check(matches(withListSize(MaxShownItems.default)))
@@ -71,59 +73,58 @@ class TestSearchActivity {
             assertThat(intents.size, `is`(1))
             assertTrue(intents[0].action.equals(Intent.ACTION_MAIN))
             assertTrue(intents[0].hasCategory(Intent.CATEGORY_LAUNCHER))
-
-            Intents.release()
         }
+    }
 
-        ActivityScenario.launch(SearchActivity::class.java).use {
-            Intents.init()
-
+    @Test
+    fun test_open_app_info_through_dialog() {
+        wrapIntentTest {
             onSearchInput().perform(typeText("o"))
             onListView().check(matches(withListSize(MaxShownItems.default)))
 
             onData(anything()).atPosition(0).perform(longClick())
-            onAppInfoBtn(context).perform(click())
-            val intents = Intents.getIntents()
-            assertThat(intents.size, `is`(1))
-            assertThat(
-                intents[0].action.equals(Settings.ACTION_APPLICATION_DETAILS_SETTINGS),
-                `is`(true)
-            )
-
-            Intents.release()
+            onAppInfoBtn().perform(click())
+            assertAppInfoHasLunched()
         }
+    }
 
-        ActivityScenario.launch(SearchActivity::class.java).use {
-            Intents.init()
-
+    @Test
+    fun test_open_our_app_info() {
+        wrapIntentTest {
             onSearchInput().perform(typeText("typeup"))
             onData(anything()).atPosition(0).perform(click())
 
-            onAppInfoBtn(context).perform(click())
-
-            val intents = Intents.getIntents()
-            assertThat(intents.size, `is`(1))
-            assertThat(
-                intents[0].action.equals(Settings.ACTION_APPLICATION_DETAILS_SETTINGS),
-                `is`(true)
-            )
-
-            Intents.release()
+            onAppInfoBtn().perform(click())
+            assertAppInfoHasLunched()
         }
-
     }
 
-    private fun onAppInfoBtn(context : Context) = onView(
-        allOf(
-            withId(android.R.id.text1),
-            withText(context.getString(R.string.appInfoTxt)),
-            withParent(
-                allOf(
-                    withId(androidx.appcompat.R.id.select_dialog_listview),
-                    withParent(withId(androidx.appcompat.R.id.contentPanel))
-                )
-            ),
-            isDisplayed()
+    private fun assertAppInfoHasLunched() {
+        val intents = Intents.getIntents()
+        assertThat(intents.size, `is`(1))
+        assertThat(
+            intents[0].action.equals(Settings.ACTION_APPLICATION_DETAILS_SETTINGS),
+            `is`(true)
         )
-    )
+    }
+
+    private fun wrapTest(test: () -> Unit) {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        SharedPref.edit(context).clear().commit()
+
+        ActivityScenario.launch(SearchActivity::class.java).use {
+            onAcceptBtn().perform(click())
+
+            test()
+        }
+    }
+
+    private fun wrapIntentTest(test: () -> Unit) {
+        wrapTest {
+            Intents.init()
+            test()
+            Intents.release()
+        }
+    }
+
 }
