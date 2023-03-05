@@ -32,6 +32,7 @@
         android:importantForAutofill="no"
         android:inputType="text"
         android:padding="24dp"
+        android:imeOptions="actionDone"
 
         android:textColor="@color/normalTextColor"
         android:textColorHint="@color/normalTextColorMiddle" />
