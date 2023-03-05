@@ -1,9 +1,6 @@
 <resources>
-<!--
-    @author Marko Mihajlovic aka Fybriz
-    @see - Available on Google Play {https://play.google.com/store/apps/details?id=com.typeup}
--->
-    <style name="TypeUpTheme" parent="TypeUpThemeLight"/>
+
+    <style name="TypeUpTheme" parent="TypeUpThemeLight" />
 
     <style name="TypeUpThemeLight" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/normalBgColor</item>
