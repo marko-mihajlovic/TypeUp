@@ -1,5 +1,6 @@
-package com.typeup.search_apps.data.data_source
+package com.typeup.search_apps.data.data_source.test
 
+import com.typeup.search_apps.data.data_source.InstalledAppsDataSource
 import com.typeup.search_apps.data.model.AppInfo
 
 class FakeInstalledAppsDataSource : InstalledAppsDataSource {

@@ -2,7 +2,7 @@ package com.typeup
 
 import com.typeup.search_apps.data.SearchAppsUseCase
 import com.typeup.search_apps.data.model.SearchAppsUiState
-import com.typeup.search_apps.data.repo.FakeAppsRepo
+import com.typeup.search_apps.data.repo.test.FakeAppsRepo
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.runBlocking

@@ -4,7 +4,7 @@ import com.typeup.rules.MainDispatcherRule
 import com.typeup.search_apps.SearchAppsViewModel
 import com.typeup.search_apps.data.SearchAppsUseCase
 import com.typeup.search_apps.data.model.SearchAppsUiState
-import com.typeup.search_apps.data.repo.FakeAppsRepo
+import com.typeup.search_apps.data.repo.test.FakeAppsRepo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.MatcherAssert.assertThat
