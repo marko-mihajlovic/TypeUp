@@ -23,7 +23,7 @@ object PolicyDialog {
     private fun showDialog(context: Context, appPref: SharedPreferences, hasAcceptedPP: Boolean) {
         AlertDialog.Builder(context, R.style.Dialog)
             .setCancelable(hasAcceptedPP)
-            .setTitle(R.string.privacyPolicyTxt)
+            .setTitle("Privacy Policy")
             .setMessage(R.string.privacyLongTxt)
             .setPositiveButton(
                 if (hasAcceptedPP)

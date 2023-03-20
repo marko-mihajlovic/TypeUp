@@ -7,7 +7,6 @@
 
     <string name="search_apps">Search apps…</string>
     <string name="accept">Accept</string>
-    <string name="privacyPolicyTxt">Privacy Policy</string>
     <string name="menu">menu</string>
     <string name="ok">OK</string>
 
@@ -24,12 +23,6 @@
     <string name="featureFeedbackUrl" tools:ignore="Typos">https://docs.google.com/forms/d/e/1FAIpQLSdL6XDyBNedZhVXMOUzTHdFG0qHTrzoJIYbsB6XLWDMPmWp1A/viewform</string>
 
     <string name="appInfoTxt">App info</string>
-
-    <array name="options_more">
-        <item>Feedback</item>
-        <item>@string/privacyPolicyTxt</item>
-        <item>Share app link</item>
-    </array>
 
     <array name="selectedAppOptions">
         <item>@string/appInfoTxt</item>
