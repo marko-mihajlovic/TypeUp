@@ -9,25 +9,35 @@ import com.typeup.options.main.ThemeSettings
 
 object MainOptions {
 
-    private enum class Item(val positionInList: Int) {
-        MAX_NUM(0),
-        THEME(1),
-        REFRESH(2),
-        MORE(3),
+    private enum class Item(val text: String) {
+        MAX_NUM("Max items"),
+        THEME("Theme"),
+        REFRESH("Refresh"),
+        MORE("More…");
+
+        companion object {
+            fun getItemWithText(text: String): Item {
+                return Item.values().first { x ->
+                    x.text == text
+                }
+            }
+        }
     }
 
+
     fun showDialog(context: Context, onRefresh: (refresh: Boolean) -> Unit) {
+        val list: Array<String> = Item.values().map { it.text }.toTypedArray()
+
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(R.string.menuOptionsTitle)
-            .setItems(R.array.options) { dialog, x ->
+            .setItems(list) { dialog, position ->
                 dialog.cancel()
 
-                when (x) {
-                    Item.MAX_NUM.positionInList -> MaxShownItems.showDialog(context, onRefresh)
-                    Item.THEME.positionInList -> ThemeSettings.showDialog(context)
-                    Item.REFRESH.positionInList -> onRefresh(true)
-                    Item.MORE.positionInList -> MoreOptions.showDialog(context)
-                    else -> {}
+                when (Item.getItemWithText(list[position])) {
+                    Item.MAX_NUM -> MaxShownItems.showDialog(context, onRefresh)
+                    Item.THEME -> ThemeSettings.showDialog(context)
+                    Item.REFRESH -> onRefresh(true)
+                    Item.MORE -> MoreOptions.showDialog(context)
                 }
             }
             .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
@@ -37,3 +47,5 @@ object MainOptions {
     }
 
 }
+
+
