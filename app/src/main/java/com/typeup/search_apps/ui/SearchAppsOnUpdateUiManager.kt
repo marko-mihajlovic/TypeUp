@@ -12,31 +12,15 @@ object SearchAppsOnUpdateUiManager {
         binding: ActivitySearchBinding,
         adapter: AppsListViewAdapter,
     ) {
-
-        when (state) {
-            is SearchAppsUiState.Error -> {
-                updateMsgTxt(binding, true, state.msg)
-                adapter.updateAdapter(emptyList())
-            }
-            is SearchAppsUiState.Loading -> {
-                updateMsgTxt(binding, true, state.msg)
-                adapter.updateAdapter(emptyList())
-            }
-            is SearchAppsUiState.Success -> {
-                updateMsgTxt(binding, false)
-                adapter.updateAdapter(state.list)
-            }
-        }
-
+        adapter.updateAdapter(state.data)
+        updateNoPaddingMsgTxt(binding, if (state.isLoading) "Loading..." else state.errorMsg())
     }
 
-    private fun updateMsgTxt(
+    private fun updateNoPaddingMsgTxt(
         binding: ActivitySearchBinding,
-        visible: Boolean,
         msg: String = "",
     ) {
-        binding.msgTxt.visibility = if (visible) View.VISIBLE else View.GONE
-        binding.msgTxt.text = if (visible) msg else ""
+        binding.msgTxt.visibility = if (msg.isEmpty()) View.INVISIBLE else View.VISIBLE
+        binding.msgTxt.text = msg
     }
-
 }

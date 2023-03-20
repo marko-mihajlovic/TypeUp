@@ -4,6 +4,7 @@ import android.content.Context
 import com.typeup.options.main.MaxShownItems
 import com.typeup.search_apps.data.data_source.InstalledAppsDataSource
 import com.typeup.search_apps.data.model.AppInfo
+import com.typeup.search_apps.data.model.AppsRepoState
 import com.typeup.util.SharedPref
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,21 +20,28 @@ class InstalledAppsRepoImpl @Inject constructor(
 
     private var apps: List<AppInfo> = emptyList()
 
-    override fun get(refresh: Boolean): Flow<List<AppInfo>> {
+    override fun get(refresh: Boolean): Flow<AppsRepoState> {
         return flow {
             if (apps.isEmpty() || refresh) {
                 val cache = getCachedApps()
                 apps = cache
-                emit(cache)
 
-                if (cache.isEmpty() || refresh) {
+                val needsToFetchData = cache.isEmpty() || refresh
+                emit(
+                    AppsRepoState(
+                        data = cache,
+                        isLoading = needsToFetchData,
+                    )
+                )
+
+                if (needsToFetchData) {
                     val installedApps = dataSource.get()
                     apps = installedApps
                     saveCache(installedApps)
-                    emit(installedApps)
+                    emit(AppsRepoState(installedApps))
                 }
             } else {
-                emit(apps)
+                emit(AppsRepoState(apps))
             }
         }
     }

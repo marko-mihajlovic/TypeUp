@@ -16,7 +16,7 @@ object MainOptions {
         MORE(3),
     }
 
-    fun showDialog(context: Context, onRefresh: () -> Unit) {
+    fun showDialog(context: Context, onRefresh: (refresh: Boolean) -> Unit) {
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(R.string.menuOptionsTitle)
             .setItems(R.array.options) { dialog, x ->
@@ -25,7 +25,7 @@ object MainOptions {
                 when (x) {
                     Item.MAX_NUM.positionInList -> MaxShownItems.showDialog(context, onRefresh)
                     Item.THEME.positionInList -> ThemeSettings.showDialog(context)
-                    Item.REFRESH.positionInList -> onRefresh()
+                    Item.REFRESH.positionInList -> onRefresh(true)
                     Item.MORE.positionInList -> MoreOptions.showDialog(context)
                     else -> {}
                 }

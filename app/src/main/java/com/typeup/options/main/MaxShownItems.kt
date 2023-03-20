@@ -14,7 +14,7 @@ object MaxShownItems {
     const val max = 5
     const val default = 3
 
-    fun showDialog(context: Context, onRefresh: () -> Unit) {
+    fun showDialog(context: Context, onRefresh: (refresh: Boolean) -> Unit) {
         val binding = LayoutNumberPickerBinding.inflate(AppUtil.getInflater(context))
         val numPicker = binding.dialogNumberPicker
 
@@ -31,7 +31,7 @@ object MaxShownItems {
                 dialog.cancel()
 
                 setMaxItems(context, numPicker.value)
-                onRefresh()
+                onRefresh(false)
             }
             .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
                 dialog.cancel()

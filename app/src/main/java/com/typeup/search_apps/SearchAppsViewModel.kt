@@ -16,7 +16,13 @@ class SearchAppsViewModel @Inject constructor(
     private val searchAppsUseCase: SearchAppsUseCase,
 ) : ViewModel() {
 
-    private val _apps = MutableStateFlow<SearchAppsUiState>(SearchAppsUiState.Loading())
+    private val _apps =
+        MutableStateFlow(
+            SearchAppsUiState(
+                data = emptyList(),
+                isLoading = true
+            )
+        )
     val uiState: StateFlow<SearchAppsUiState> = _apps
 
     init {

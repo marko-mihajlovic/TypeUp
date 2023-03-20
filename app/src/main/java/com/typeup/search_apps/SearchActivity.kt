@@ -48,7 +48,6 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-
     private var isFirstTime = true
     private fun runAfterLoadingOnce() {
         if (isFirstTime) {

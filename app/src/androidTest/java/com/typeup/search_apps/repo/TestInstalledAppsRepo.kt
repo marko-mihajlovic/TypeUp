@@ -31,26 +31,26 @@ class TestInstalledAppsRepo {
         SharedPref.edit(context).remove("installed_apps").commit()
 
         // Check empty cache is emitted
-        assertThat(repo.get().firstOrNull(), `is`(empty()))
+        assertThat(repo.get().firstOrNull()?.data, `is`(empty()))
 
         // Check installed apps are emitted
-        assertThat(repo.get().lastOrNull(), `is`(not(empty())))
+        assertThat(repo.get().lastOrNull()?.data, `is`(not(empty())))
 
         // Wait for cache to be saved, because of sharedPref.apply()
         // https://developer.android.com/reference/android/content/SharedPreferences.Editor.html?hl=en#apply()
         delay(100)
 
         // Check cache is now available
-        assertThat(repo.get().firstOrNull(), `is`(not(empty())))
+        assertThat(repo.get().firstOrNull()?.data, `is`(not(empty())))
 
         // Clear cache
         SharedPref.edit(context).remove("installed_apps").commit()
 
         // Check memory cache is still available
-        assertThat(repo.get().firstOrNull(), `is`(not(empty())))
+        assertThat(repo.get().firstOrNull()?.data, `is`(not(empty())))
 
         // baseline check for later tests
-        val repoAppNameList1a = repo.get().firstOrNull()?.map { it.appName }
+        val repoAppNameList1a = repo.get().firstOrNull()?.data?.map { it.appName }
         val fakeAppNameList1a = fakeDataSource.get().map { it.appName }
         assertThat(repoAppNameList1a?.size, `is`(fakeAppNameList1a.size))
         assertThat(repoAppNameList1a, containsInAnyOrder(*fakeAppNameList1a.toTypedArray()))
@@ -61,14 +61,14 @@ class TestInstalledAppsRepo {
         SharedPref.edit(context).putString("installed_apps", jsonString).apply()
 
         // Check cache still shows old data, because refresh is false by default
-        val repoAppNameList1b = repo.get().firstOrNull()?.map { it.appName }
+        val repoAppNameList1b = repo.get().firstOrNull()?.data?.map { it.appName }
         val fakeAppNameList1b = fakeDataSource.get().map { it.appName }
         assertThat(repoAppNameList1b?.size, `is`(fakeAppNameList1b.size))
         assertThat(repoAppNameList1b, containsInAnyOrder(*fakeAppNameList1b.toTypedArray()))
 
         // Check refresh works
         // Check new data is emitted when we request refresh
-        val repoAppNameList2 = repo.get(refresh = true).firstOrNull()?.map { it.appName }
+        val repoAppNameList2 = repo.get(refresh = true).firstOrNull()?.data?.map { it.appName }
         val fakeAppNameList2 = fakeList2.map { it.appName }
         assertThat(repoAppNameList2?.size, `is`(fakeAppNameList2.size))
         assertThat(repoAppNameList2, containsInAnyOrder(*fakeAppNameList2.toTypedArray()))
