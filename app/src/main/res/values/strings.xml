@@ -22,13 +22,6 @@
 
     <string name="featureFeedbackUrl" tools:ignore="Typos">https://docs.google.com/forms/d/e/1FAIpQLSdL6XDyBNedZhVXMOUzTHdFG0qHTrzoJIYbsB6XLWDMPmWp1A/viewform</string>
 
-    <string name="appInfoTxt">App info</string>
-
-    <array name="selectedAppOptions">
-        <item>@string/appInfoTxt</item>
-        <item>Open in Google Play</item>
-    </array>
-
     <array name="theme_settings">
         <item>Light</item>
         <item>Dark</item>
