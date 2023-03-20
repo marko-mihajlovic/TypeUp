@@ -19,9 +19,16 @@ object ThemeSettings {
         DARK("Dark"),
         SYSTEM("System Default");
 
-        companion object : CompanionEnumWithText<Theme>
+        companion object : CompanionEnumWithText<Theme> {
+            fun valueOfWithDefault(theme: String, default: Theme): Theme {
+                try {
+                    return Theme.valueOf(theme)
+                } catch (e: IllegalArgumentException) {
+                    return default
+                }
+            }
+        }
     }
-
 
     fun showDialog(context: Context) {
         val list = Theme.getTexts()
@@ -36,7 +43,9 @@ object ThemeSettings {
             }
             .setPositiveButton(R.string.saveTxt) { dialog, _ ->
                 dialog.cancel()
-                setNewTheme(context, selectedTheme)
+
+                rememberTheme(context, selectedTheme)
+                changeDeviceTheme(selectedTheme)
             }
             .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
                 dialog.cancel()
@@ -44,54 +53,29 @@ object ThemeSettings {
             .show()
     }
 
-    private fun setNewTheme(context: Context, theme: Theme) {
-        when (theme) {
-            Theme.LIGHT -> {
-                rememberTheme(context, Theme.LIGHT)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            Theme.DARK -> {
-                rememberTheme(context, Theme.DARK)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-            Theme.SYSTEM -> {
-                rememberTheme(context, Theme.SYSTEM)
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-        }
+    fun applySavedTheme(context: Context) {
+        changeDeviceTheme(getSavedTheme(context))
     }
 
-    fun applyExistingTheme(context: Context) {
-        when (getSavedTheme(context)) {
+    private fun changeDeviceTheme(theme: Theme) {
+        when (theme) {
             Theme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             Theme.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             Theme.SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
     }
 
-
     private fun rememberTheme(context: Context, theme: Theme) {
         SharedPref.edit(context).putString(themeKey, theme.toString()).apply()
     }
 
-    private fun getSavedThemeString(context: Context): String {
-        var savedString: String? =
-            SharedPref.get(context).getString(themeKey, Theme.SYSTEM.toString())
-        if (savedString == null)
-            savedString = Theme.SYSTEM.toString()
-
-        return savedString
-    }
-
     private fun getSavedTheme(context: Context): Theme {
-        return valueOf(getSavedThemeString(context), Theme.SYSTEM)
+        return Theme.valueOfWithDefault(getSavedThemeString(context), Theme.SYSTEM)
     }
 
-    private inline fun <reified T : Enum<T>> valueOf(s: String, default: T): T {
-        return try {
-            java.lang.Enum.valueOf(T::class.java, s)
-        } catch (e: IllegalArgumentException) {
-            default
-        }
+    private fun getSavedThemeString(context: Context): String {
+        return SharedPref.get(context).getString(themeKey, Theme.SYSTEM.toString())
+            ?: Theme.SYSTEM.toString()
     }
+
 }
