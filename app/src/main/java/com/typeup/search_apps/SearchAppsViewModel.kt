@@ -29,9 +29,9 @@ class SearchAppsViewModel @Inject constructor(
         searchApps("")
     }
 
-    fun searchApps(filterText: String, refresh: Boolean = false) {
+    fun searchApps(queryText: String, refresh: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
-            searchAppsUseCase(filterText, refresh).collect { x ->
+            searchAppsUseCase(queryText, refresh).collect { x ->
                 _apps.value = x
             }
         }

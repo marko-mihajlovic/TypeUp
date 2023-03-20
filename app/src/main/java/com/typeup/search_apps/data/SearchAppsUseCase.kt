@@ -13,24 +13,24 @@ class SearchAppsUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(
-        filterText: String,
+        queryText: String,
         refresh: Boolean = false
     ): Flow<SearchAppsUiState> {
         return flow {
             repo.get(refresh).collect { x ->
-                emit(getUiState(x, filterText))
+                emit(getUiState(x, queryText))
             }
         }
     }
 
-    private fun getUiState(repoState: AppsRepoState, filterString: String): SearchAppsUiState {
-        if (filterString.isEmpty())
+    private fun getUiState(repoState: AppsRepoState, queryText: String): SearchAppsUiState {
+        if (queryText.isEmpty())
             return SearchAppsUiState(emptyList(), isLoading = repoState.isLoading)
 
         if (repoState.data.isEmpty())
             return SearchAppsUiState(repoState.data, isLoading = repoState.isLoading)
 
-        val modifiedList = modifyList(repoState.data, filterString)
+        val modifiedList = modifyList(repoState.data, queryText)
 
         if (modifiedList.isEmpty())
             return SearchAppsUiState(
@@ -45,14 +45,14 @@ class SearchAppsUseCase @Inject constructor(
         )
     }
 
-    private fun modifyList(list: List<AppInfo>, filterString: String): List<AppInfo> {
+    private fun modifyList(list: List<AppInfo>, queryText: String): List<AppInfo> {
         return list
             .filter { x ->
-                x.appNameLowercase.contains(filterString)
+                x.appNameLowercase.contains(queryText)
             }
             .sortedWith(
                 compareByDescending<AppInfo> { x ->
-                    x.appNameLowercase.startsWith(filterString)
+                    x.appNameLowercase.startsWith(queryText)
                 }.thenBy { x ->
                     x.appNameLowercase.length
                 }
