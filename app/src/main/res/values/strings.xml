@@ -22,12 +22,6 @@
 
     <string name="featureFeedbackUrl" tools:ignore="Typos">https://docs.google.com/forms/d/e/1FAIpQLSdL6XDyBNedZhVXMOUzTHdFG0qHTrzoJIYbsB6XLWDMPmWp1A/viewform</string>
 
-    <array name="theme_settings">
-        <item>Light</item>
-        <item>Dark</item>
-        <item>System Default</item>
-    </array>
-
     <string name="privacyLongTxt">This app does not collect any information about you.
         \n\n<a href="https://github.com/marko-mihajlovic/TypeUp/wiki/Privacy-Policy"><i>View full Privacy Policy</i></a>
     </string>

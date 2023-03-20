@@ -4,28 +4,39 @@ import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import com.typeup.R
+import com.typeup.options.CompanionEnumWithText
+import com.typeup.options.EnumWithText
+import com.typeup.options.getItemWithText
+import com.typeup.options.getTexts
 import com.typeup.util.SharedPref
 
 object ThemeSettings {
 
     private const val themeKey = "selectedTheme"
 
-    private enum class Theme(val positionInList: Int) {
-        LIGHT(0), DARK(1), SYSTEM(2)
+    private enum class Theme(override val text: String) : EnumWithText {
+        LIGHT("Light"),
+        DARK("Dark"),
+        SYSTEM("System Default");
+
+        companion object : CompanionEnumWithText<Theme>
     }
 
 
     fun showDialog(context: Context) {
-        var selectedItem = getSavedTheme(context).positionInList
+        val list = Theme.getTexts()
+        var selectedTheme = getSavedTheme(context)
+        var selectedPos = list.indexOf(selectedTheme.text)
 
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(R.string.chooseThemeTitle)
-            .setSingleChoiceItems(R.array.theme_settings, selectedItem) { _, pos ->
-                selectedItem = pos
+            .setSingleChoiceItems(list, selectedPos) { _, pos ->
+                selectedTheme = Theme.getItemWithText(list[pos])
+                selectedPos = pos
             }
             .setPositiveButton(R.string.saveTxt) { dialog, _ ->
                 dialog.cancel()
-                setNewTheme(context, selectedItem)
+                setNewTheme(context, selectedTheme)
             }
             .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
                 dialog.cancel()
@@ -33,21 +44,20 @@ object ThemeSettings {
             .show()
     }
 
-    private fun setNewTheme(context: Context, positionInList: Int) {
-        when (positionInList) {
-            Theme.LIGHT.positionInList -> {
+    private fun setNewTheme(context: Context, theme: Theme) {
+        when (theme) {
+            Theme.LIGHT -> {
                 rememberTheme(context, Theme.LIGHT)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
-            Theme.DARK.positionInList -> {
+            Theme.DARK -> {
                 rememberTheme(context, Theme.DARK)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
-            Theme.SYSTEM.positionInList -> {
+            Theme.SYSTEM -> {
                 rememberTheme(context, Theme.SYSTEM)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             }
-            else -> {}
         }
     }
 
