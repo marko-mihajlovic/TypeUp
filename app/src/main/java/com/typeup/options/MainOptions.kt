@@ -15,12 +15,12 @@ object MainOptions {
         REFRESH("Refresh"),
         MORE("More…");
 
-        companion object : EnumCompanion<Item>
+        companion object : CompanionEnumWithText<Item>
     }
 
 
     fun showDialog(context: Context, onRefresh: (refresh: Boolean) -> Unit) {
-        val list: Array<String> = Item.values().map { it.text }.toTypedArray()
+        val list = Item.getTexts()
 
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(R.string.menuOptionsTitle)
