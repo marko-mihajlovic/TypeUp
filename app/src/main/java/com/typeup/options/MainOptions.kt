@@ -9,19 +9,13 @@ import com.typeup.options.main.ThemeSettings
 
 object MainOptions {
 
-    private enum class Item(val text: String) {
+    private enum class Item(override val text: String) : EnumWithText {
         MAX_NUM("Max items"),
         THEME("Theme"),
         REFRESH("Refresh"),
         MORE("More…");
 
-        companion object {
-            fun getItemWithText(text: String): Item {
-                return Item.values().first { x ->
-                    x.text == text
-                }
-            }
-        }
+        companion object : EnumCompanion<Item>
     }
 
 
