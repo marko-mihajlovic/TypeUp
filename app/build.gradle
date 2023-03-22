@@ -21,7 +21,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    testBuildType "staging"
+    testBuildType "stagingTest"
 
     buildTypes {
         debug {
@@ -37,13 +37,21 @@ android {
         }
 
         staging {
+            initWith release
+
             applicationIdSuffix ".stg"
             versionNameSuffix "-stg"
+            signingConfig signingConfigs.debug
+        }
+
+        stagingTest {
+            applicationIdSuffix ".stg.test"
+            versionNameSuffix "-stg-test"
             signingConfig signingConfigs.debug
 
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-staging-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-staging-test-rules.pro'
         }
     }
 
