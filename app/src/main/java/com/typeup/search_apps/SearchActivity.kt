@@ -62,4 +62,16 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        KeyboardUtil.show(this, binding.searchInput)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        KeyboardUtil.hide(this, binding.searchInput)
+    }
+
 }
