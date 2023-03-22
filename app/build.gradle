@@ -24,6 +24,7 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".dev"
+            versionNameSuffix "-debug"
             minifyEnabled false
         }
 
@@ -35,6 +36,7 @@ android {
 
         staging {
             applicationIdSuffix ".stg"
+            versionNameSuffix "-stg"
             signingConfig signingConfigs.debug
 
             minifyEnabled true
