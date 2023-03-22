@@ -26,15 +26,14 @@ class InstalledAppsRepoImpl @Inject constructor(
                 val cache = getCachedApps()
                 apps = cache
 
-                val needsToFetchData = cache.isEmpty() || refresh
                 emit(
                     AppsRepoState(
                         data = cache,
-                        isLoading = needsToFetchData,
+                        isLoading = refresh,
                     )
                 )
 
-                if (needsToFetchData) {
+                if (cache.isEmpty() || refresh) {
                     val installedApps = dataSource.get()
                     apps = installedApps
                     saveCache(installedApps)
