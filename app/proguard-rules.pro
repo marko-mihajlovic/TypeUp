@@ -19,3 +19,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Used in order to keep <T>.getItemWithText() and <T>.getTexts()
+-keepclassmembers class * implements com.typeup.options.CompanionEnumWithText
