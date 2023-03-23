@@ -8,7 +8,6 @@ import com.typeup.BuildConfig
 import com.typeup.R
 import com.typeup.TypeUpApp
 import com.typeup.search_apps.data.model.AppInfo
-import javax.inject.Inject
 
 /**
  *  Returns all installed apps using PackageManager

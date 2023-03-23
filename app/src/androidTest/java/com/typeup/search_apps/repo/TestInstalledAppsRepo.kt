@@ -1,7 +1,6 @@
 package com.typeup.search_apps.repo
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import com.typeup.search_apps.data.data_source.test.FakeInstalledAppsDataSource
 import com.typeup.search_apps.data.data_source.test.FakeInstalledAppsDataSource2
 import com.typeup.search_apps.data.repo.InstalledAppsRepoImpl

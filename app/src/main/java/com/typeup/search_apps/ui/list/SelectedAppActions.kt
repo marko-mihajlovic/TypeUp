@@ -8,7 +8,10 @@ import android.provider.Settings
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
-import com.typeup.options.*
+import com.typeup.options.CompanionEnumWithText
+import com.typeup.options.EnumWithText
+import com.typeup.options.getItemWithText
+import com.typeup.options.getTexts
 import com.typeup.search_apps.data.model.AppInfo
 import com.typeup.util.AppUtil
 import com.typeup.util.LinkUtil
