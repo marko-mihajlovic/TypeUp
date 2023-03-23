@@ -13,7 +13,7 @@ object PolicyDialog {
     private const val hasAcceptedPolicyKey = "hasAcceptedPrivacyPolicy-v2"
 
     fun tryToShow(context: Context, forceShow: Boolean) {
-        val appPref = SharedPref.get(context)
+        val appPref = SharedPref.get()
         val hasAcceptedPP = appPref.getBoolean(hasAcceptedPolicyKey, false)
 
         if (!hasAcceptedPP || forceShow)
@@ -23,16 +23,11 @@ object PolicyDialog {
     private fun showDialog(context: Context, appPref: SharedPreferences, hasAcceptedPP: Boolean) {
         AlertDialog.Builder(context, R.style.Dialog)
             .setCancelable(hasAcceptedPP)
-            .setTitle(R.string.privacyPolicyTxt)
+            .setTitle("Privacy Policy")
             .setMessage(R.string.privacyLongTxt)
-            .setPositiveButton(
-                if (hasAcceptedPP)
-                    R.string.ok
-                else
-                    R.string.accept,
-            ) { d, _ ->
+            .setPositiveButton(if (hasAcceptedPP) R.string.ok else R.string.accept) { dialog, _ ->
                 appPref.edit().putBoolean(hasAcceptedPolicyKey, true).apply()
-                d.dismiss()
+                dialog.dismiss()
             }
             .show()
             .also { x ->

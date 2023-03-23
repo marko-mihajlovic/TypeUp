@@ -2,9 +2,7 @@ package com.typeup.search_apps.ui
 
 import android.content.Context
 import android.text.Editable
-import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.typeup.databinding.ActivitySearchBinding
 import com.typeup.options.MainOptions
 import com.typeup.options.main.ThemeSettings
@@ -22,7 +20,7 @@ object SearchAppsInitUiManager {
         adapter: AppsListViewAdapter,
     ) {
 
-        ThemeSettings.applyExistingTheme(context)
+        ThemeSettings.applySavedTheme()
         PolicyDialog.tryToShow(context, false)
 
         AppsListViewManager.init(
@@ -32,41 +30,35 @@ object SearchAppsInitUiManager {
             editText = binding.searchInput
         )
 
-        initRefreshLayout(
-            binding.refreshLayout,
-            editText = binding.searchInput,
-            viewModel = viewModel
-        )
+        initRefreshLayout(binding, viewModel)
 
         binding.searchInput.doAfterTextChanged { text: Editable? ->
             viewModel.searchApps(text?.toString()?.trim()?.lowercase() ?: "")
         }
 
         binding.optionsBtn.setOnClickListener {
-            MainOptions.showDialog(context) {
-                refreshSearch(binding.searchInput, viewModel)
-            }
+            MainOptions.showDialog(context)
         }
 
     }
 
     private fun initRefreshLayout(
-        swipeRefreshLayout: SwipeRefreshLayout,
-        editText: EditText,
+        binding: ActivitySearchBinding,
         viewModel: SearchAppsViewModel,
     ) {
-        swipeRefreshLayout.setOnRefreshListener {
-            refreshSearch(editText, viewModel)
-            swipeRefreshLayout.isRefreshing = false
+        binding.refreshLayout.setOnRefreshListener {
+            refreshSearch(binding, viewModel)
+            binding.refreshLayout.isRefreshing = false
         }
     }
 
-    private fun refreshSearch(
-        editText: EditText,
+    fun refreshSearch(
+        binding: ActivitySearchBinding,
         viewModel: SearchAppsViewModel,
+        refresh: Boolean = true,
     ) {
-        val text = editText.text?.toString()?.trim()?.lowercase() ?: ""
-        viewModel.searchApps(text, true)
+        val text = binding.searchInput.text?.toString()?.trim()?.lowercase() ?: ""
+        viewModel.searchApps(text, refresh)
     }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
@@ -29,10 +30,10 @@
         android:backgroundTint="@color/normalTextColorSmall"
         android:hint="@string/search_apps"
 
+        android:imeOptions="actionDone"
         android:importantForAutofill="no"
         android:inputType="text"
         android:padding="24dp"
-        android:imeOptions="actionDone"
 
         android:textColor="@color/normalTextColor"
         android:textColorHint="@color/normalTextColorMiddle" />
@@ -42,9 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="16dp"
+        android:paddingTop="2dp"
         android:textColor="@color/normalTextColorMiddle"
-        android:visibility="gone" />
+        android:visibility="invisible" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
@@ -59,10 +60,11 @@
             android:clipToPadding="false"
             android:divider="@drawable/list_divider"
             android:dividerHeight="1dp"
-            android:paddingVertical="16dp"
-
+            android:paddingBottom="16dp"
             android:scrollbarStyle="outsideOverlay"
-            android:tag="listview" />
+
+            android:tag="listview"
+            tools:listitem="@layout/item_app_row" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

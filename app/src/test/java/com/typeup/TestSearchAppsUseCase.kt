@@ -1,14 +1,13 @@
 package com.typeup
 
 import com.typeup.search_apps.data.SearchAppsUseCase
-import com.typeup.search_apps.data.model.SearchAppsUiState
+import com.typeup.search_apps.data.model.AppInfo
 import com.typeup.search_apps.data.repo.test.FakeAppsRepo
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.contains
-import org.hamcrest.Matchers.isA
+import org.hamcrest.Matchers.*
 import org.junit.Test
 
 class TestSearchAppsUseCase {
@@ -18,18 +17,26 @@ class TestSearchAppsUseCase {
         val searchAppsUseCase = SearchAppsUseCase(FakeAppsRepo(5))
 
         assertThat(
-            searchAppsUseCase("name_of_app_that_does_not_exits").firstOrNull(),
-            isA(SearchAppsUiState.Loading::class.java)
+            searchAppsUseCase("name_of_app_that_does_not_exits").firstOrNull()?.isLoading,
+            `is`(true)
         )
 
         assertThat(
-            searchAppsUseCase("name_of_app_that_does_not_exits").lastOrNull(),
-            isA(SearchAppsUiState.Error::class.java)
+            searchAppsUseCase("name_of_app_that_does_not_exits").lastOrNull()?.isError,
+            `is`(true)
         )
 
         assertThat(
-            searchAppsUseCase("app").lastOrNull(),
-            isA(SearchAppsUiState.Success::class.java)
+            searchAppsUseCase("app").lastOrNull()?.data,
+            `is`(not(empty()))
+        )
+        assertThat(
+            searchAppsUseCase("app").lastOrNull()?.isError,
+            `is`(false)
+        )
+        assertThat(
+            searchAppsUseCase("app").lastOrNull()?.isLoading,
+            `is`(false)
         )
     }
 
@@ -43,10 +50,10 @@ class TestSearchAppsUseCase {
     private suspend fun test() {
         val searchAppsUseCase = SearchAppsUseCase(FakeAppsRepo(5))
 
-        val apps1 = searchAppsUseCase("bacon").lastOrNull()
-        require(apps1 is SearchAppsUiState.Success)
+        val apps1 = searchAppsUseCase("bacon").lastOrNull()?.data
+        require(apps1 is List<AppInfo>)
         assertThat(
-            apps1.list.map { x ->
+            apps1.map { x ->
                 x.appName
             },
             contains(
@@ -54,10 +61,10 @@ class TestSearchAppsUseCase {
             )
         )
 
-        val apps2 = searchAppsUseCase("abc").lastOrNull()
-        require(apps2 is SearchAppsUiState.Success)
+        val apps2 = searchAppsUseCase("abc").lastOrNull()?.data
+        require(apps2 is List<AppInfo>)
         assertThat(
-            apps2.list.map { x ->
+            apps2.map { x ->
                 x.appName
             },
             contains(

@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.typeup.databinding.ActivitySearchBinding
+import com.typeup.search_apps.ui.OnRefreshEvent
 import com.typeup.search_apps.ui.SearchAppsInitUiManager
 import com.typeup.search_apps.ui.SearchAppsOnUpdateUiManager
 import com.typeup.search_apps.ui.list.AppsListViewAdapter
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity(), OnRefreshEvent {
 
     private val viewModel: SearchAppsViewModel by viewModels()
     private lateinit var binding: ActivitySearchBinding
@@ -48,7 +49,6 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-
     private var isFirstTime = true
     private fun runAfterLoadingOnce() {
         if (isFirstTime) {
@@ -61,6 +61,22 @@ class SearchActivity : AppCompatActivity() {
                 adapter = appsListViewAdapter,
             )
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        KeyboardUtil.show(this, binding.searchInput)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        KeyboardUtil.hide(this)
+    }
+
+    override fun onRefresh(refresh: Boolean) {
+        SearchAppsInitUiManager.refreshSearch(binding, viewModel, refresh)
     }
 
 }

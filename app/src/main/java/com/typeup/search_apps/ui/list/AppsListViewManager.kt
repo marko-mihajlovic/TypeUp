@@ -18,19 +18,18 @@ object AppsListViewManager {
 
         listView.setOnItemClickListener { parent, _, position, _ ->
             val item = parent.getItemAtPosition(position)
-            if (item is AppInfo)
-                if (item.appId == BuildConfig.APPLICATION_ID) {
-                    SelectedAppActions.showAppOptions(context, item)
-                } else {
-                    editText.text?.clear()
-                    SelectedAppActions.openApp(context, item)
-                }
+            require(item is AppInfo)
+            if (item.appId == BuildConfig.APPLICATION_ID)
+                SelectedAppActions.showAppOptions(context, item)
+            else
+                SelectedAppActions.openApp(context, item, editText)
         }
 
         listView.setOnItemLongClickListener { parent, _, position, _ ->
             val item = parent.getItemAtPosition(position)
-            if (item is AppInfo)
-                SelectedAppActions.showAppOptions(context, item)
+            require(item is AppInfo)
+
+            SelectedAppActions.showAppOptions(context, item)
 
             return@setOnItemLongClickListener (true)
         }

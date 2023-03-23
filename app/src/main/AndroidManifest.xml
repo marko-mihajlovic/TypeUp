@@ -13,7 +13,7 @@
         android:name=".TypeUpApp"
         android:description="@string/app_name_long"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="${appName}"
         android:roundIcon="@mipmap/ic_launcher"
         android:theme="@style/TypeUpTheme">
 

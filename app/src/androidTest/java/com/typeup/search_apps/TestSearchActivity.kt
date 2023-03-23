@@ -34,7 +34,7 @@ class TestSearchActivity {
     private fun onAppInfoBtn() = onView(
         allOf(
             withId(android.R.id.text1),
-            withText(R.string.appInfoTxt),
+            withText("App info"),
             isDisplayed()
         )
     )

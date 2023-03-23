@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
 import com.typeup.databinding.LayoutNumberPickerBinding
+import com.typeup.search_apps.ui.OnRefreshEvent
 import com.typeup.util.AppUtil
 import com.typeup.util.SharedPref
 
@@ -14,7 +15,7 @@ object MaxShownItems {
     const val max = 5
     const val default = 3
 
-    fun showDialog(context: Context, onRefresh: () -> Unit) {
+    fun showDialog(context: Context) {
         val binding = LayoutNumberPickerBinding.inflate(AppUtil.getInflater(context))
         val numPicker = binding.dialogNumberPicker
 
@@ -22,7 +23,7 @@ object MaxShownItems {
         numPicker.minValue = min
         numPicker.wrapSelectorWheel = false
 
-        numPicker.value = getMaxItems(context)
+        numPicker.value = getMaxItems()
 
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(R.string.numPickerTxt)
@@ -30,8 +31,10 @@ object MaxShownItems {
             .setPositiveButton(R.string.saveTxt) { dialog, _ ->
                 dialog.cancel()
 
-                setMaxItems(context, numPicker.value)
-                onRefresh()
+                setMaxItems(numPicker.value)
+
+                if (context is OnRefreshEvent)
+                    context.onRefresh(false)
             }
             .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
                 dialog.cancel()
@@ -39,12 +42,12 @@ object MaxShownItems {
             .show()
     }
 
-    private fun setMaxItems(context: Context, i: Int) {
-        SharedPref.edit(context).putInt(maxItemsKey, i).commit()
+    private fun setMaxItems(i: Int) {
+        SharedPref.edit().putInt(maxItemsKey, i).commit()
     }
 
-    fun getMaxItems(context: Context): Int {
-        return SharedPref.get(context).getInt(maxItemsKey, default)
+    fun getMaxItems(): Int {
+        return SharedPref.get().getInt(maxItemsKey, default)
     }
 
 }

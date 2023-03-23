@@ -1,21 +1,20 @@
 package com.typeup.search_apps.data.data_source
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Build
 import com.typeup.BuildConfig
 import com.typeup.R
+import com.typeup.TypeUpApp
 import com.typeup.search_apps.data.model.AppInfo
-import javax.inject.Inject
 
 /**
  *  Returns all installed apps using PackageManager
  */
-class InstalledAppsDataSourceImpl @Inject constructor(
-    private val context: Context
-) : InstalledAppsDataSource {
+class InstalledAppsDataSourceImpl : InstalledAppsDataSource {
+
+    private val context = TypeUpApp.appContext
 
     override fun get(): List<AppInfo> {
         val list: MutableList<AppInfo> = getInstalledApps().map { x ->

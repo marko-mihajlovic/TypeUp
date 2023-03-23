@@ -1,60 +1,63 @@
 package com.typeup.search_apps.data
 
 import com.typeup.search_apps.data.model.AppInfo
+import com.typeup.search_apps.data.model.AppsRepoState
 import com.typeup.search_apps.data.model.SearchAppsUiState
 import com.typeup.search_apps.data.repo.InstalledAppsRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
-import kotlin.math.min
 
 class SearchAppsUseCase @Inject constructor(
     private val repo: InstalledAppsRepo,
 ) {
 
     suspend operator fun invoke(
-        filterText: String,
+        queryText: String,
         refresh: Boolean = false
     ): Flow<SearchAppsUiState> {
         return flow {
             repo.get(refresh).collect { x ->
-                emit(getUiState(x, filterText))
+                emit(getUiState(x, queryText))
             }
         }
     }
 
-    private fun getUiState(list: List<AppInfo>, filterString: String): SearchAppsUiState {
-        if (filterString.isEmpty())
-            return SearchAppsUiState.Success(emptyList())
+    private fun getUiState(repoState: AppsRepoState, queryText: String): SearchAppsUiState {
+        if (queryText.isEmpty())
+            return SearchAppsUiState(emptyList(), isLoading = repoState.isLoading)
 
-        if (list.isEmpty())
-            return SearchAppsUiState.Loading()
+        if (repoState.data.isEmpty())
+            return SearchAppsUiState(repoState.data, isLoading = repoState.isLoading)
 
-        var filteredList = filterAndSortApps(list, filterString)
-        filteredList = capList(filteredList)
+        val modifiedList = modifyList(repoState.data, queryText)
 
-        if (filteredList.isEmpty())
-            return SearchAppsUiState.Error("No results found.")
+        if (modifiedList.isEmpty())
+            return SearchAppsUiState(
+                data = modifiedList,
+                isLoading = repoState.isLoading,
+                isError = true,
+            )
 
-        return SearchAppsUiState.Success(filteredList)
+        return SearchAppsUiState(
+            data = modifiedList,
+            isLoading = repoState.isLoading,
+        )
     }
 
-    private fun filterAndSortApps(list: List<AppInfo>, filterString: String): List<AppInfo> {
+    private fun modifyList(list: List<AppInfo>, queryText: String): List<AppInfo> {
         return list
             .filter { x ->
-                x.appNameLowercase.contains(filterString)
+                x.appNameLowercase.contains(queryText)
             }
             .sortedWith(
                 compareByDescending<AppInfo> { x ->
-                    x.appNameLowercase.startsWith(filterString)
+                    x.appNameLowercase.startsWith(queryText)
                 }.thenBy { x ->
                     x.appNameLowercase.length
                 }
             )
-    }
-
-    private fun capList(list: List<AppInfo>): List<AppInfo> {
-        return list.subList(0, min(list.size, repo.getMaxSize()))
+            .take(repo.getMaxSize())
     }
 
 }

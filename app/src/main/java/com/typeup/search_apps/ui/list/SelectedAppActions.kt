@@ -5,20 +5,29 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
+import com.typeup.options.CompanionEnumWithText
+import com.typeup.options.EnumWithText
+import com.typeup.options.getItemWithText
+import com.typeup.options.getTexts
 import com.typeup.search_apps.data.model.AppInfo
 import com.typeup.util.AppUtil
 import com.typeup.util.LinkUtil
 
 object SelectedAppActions {
 
-    private enum class Item(val positionInList: Int) {
-        INFO(0),
-        GP(1),
+    private enum class Item(override val text: String) : EnumWithText {
+        INFO("App info"),
+        GP("Open in Google Play");
+
+        companion object : CompanionEnumWithText<Item>
     }
 
-    fun openApp(context: Context, appInfo: AppInfo) {
+    fun openApp(context: Context, appInfo: AppInfo, editText: EditText) {
+        editText.text?.clear()
+
         val name = ComponentName(
             appInfo.appId,
             appInfo.launcherActivity
@@ -32,17 +41,17 @@ object SelectedAppActions {
         AppUtil.openIntent(context, i)
     }
 
-
     fun showAppOptions(context: Context, appInfo: AppInfo) {
+        val list = Item.getTexts()
+
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(appInfo.appName)
-            .setItems(R.array.selectedAppOptions) { dialog, x ->
+            .setItems(list) { dialog, position ->
                 dialog.cancel()
 
-                when (x) {
-                    Item.INFO.positionInList -> openAppInfo(context, appInfo.appId)
-                    Item.GP.positionInList -> openInGP(context, appInfo.appId)
-                    else -> {}
+                when (Item.getItemWithText(list[position])) {
+                    Item.INFO -> openAppInfo(context, appInfo.appId)
+                    Item.GP -> openInGP(context, appInfo.appId)
                 }
             }
             .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
@@ -62,6 +71,5 @@ object SelectedAppActions {
         val intent = Intent(Intent.ACTION_VIEW, uri)
         AppUtil.openIntent(context, intent)
     }
-
 
 }

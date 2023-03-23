@@ -25,7 +25,7 @@ class TestMaxItems {
     private fun onSearchInput() = onView(withId(R.id.searchInput))
     private fun onListView() = onView(withId(R.id.listView))
     private fun onOptionsBtn() = onView(withId(R.id.optionsBtn))
-    private fun onMaxItemsBtn() = onView(withText(R.string.maxItemsTxt))
+    private fun onMaxItemsBtn() = onView(withText("Max items"))
     private fun onNumPicker() = onView(withId(R.id.dialog_number_picker))
     private fun onSaveBtn() = onView(withText(R.string.saveTxt))
 

@@ -17,7 +17,7 @@ class TestContext {
     @Test
     fun useAppContext() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        Assert.assertEquals("com.typeup.dev", appContext.packageName)
+        Assert.assertEquals(BuildConfig.APPLICATION_ID, appContext.packageName)
     }
 
 }

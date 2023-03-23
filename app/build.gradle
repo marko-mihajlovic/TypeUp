@@ -15,31 +15,49 @@ android {
         applicationId "com.typeup"
         minSdk 23
         targetSdk 33
-        versionCode 6
-        versionName "2.0"
+        versionCode 7
+        versionName "2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    testBuildType "debug"
+
     buildTypes {
         debug {
             applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
             minifyEnabled false
+
+            manifestPlaceholders = [appName: "TypeUp Dev"]
         }
 
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            manifestPlaceholders = [appName: " "]
         }
 
         staging {
+            initWith release
+
             applicationIdSuffix ".stg"
+            versionNameSuffix "-stg"
             signingConfig signingConfigs.debug
 
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [appName: "TypeUp Stg"]
+        }
+
+        stagingTest {
+            initWith staging
+
+            applicationIdSuffix ".stg.test"
+            versionNameSuffix "-stg-test"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-staging-test-rules.pro'
+
+            manifestPlaceholders = [appName: "TypeUp StgTest"]
         }
     }
 
@@ -51,7 +69,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    
+
 }
 
 dependencies {
