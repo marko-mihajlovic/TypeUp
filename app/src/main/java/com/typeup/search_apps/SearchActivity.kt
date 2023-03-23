@@ -71,7 +71,7 @@ class SearchActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
-        KeyboardUtil.hide(this, binding.searchInput)
+        KeyboardUtil.hide(this)
     }
 
 }

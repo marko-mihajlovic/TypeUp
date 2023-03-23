@@ -15,13 +15,11 @@ object KeyboardUtil {
         }
     }
 
-    fun hide(activity: Activity, view: EditText?) {
+    fun hide(activity: Activity) {
         getInputMethodManager(activity).hideSoftInputFromWindow(
             activity.window.decorView.windowToken,
             InputMethodManager.HIDE_IMPLICIT_ONLY
         )
-
-        view?.text?.clear()
     }
 
     private fun getInputMethodManager(context: Context): InputMethodManager {

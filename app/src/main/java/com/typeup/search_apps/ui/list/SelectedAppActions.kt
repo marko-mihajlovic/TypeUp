@@ -5,12 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.typeup.R
-import com.typeup.options.CompanionEnumWithText
-import com.typeup.options.EnumWithText
-import com.typeup.options.getItemWithText
-import com.typeup.options.getTexts
+import com.typeup.options.*
 import com.typeup.search_apps.data.model.AppInfo
 import com.typeup.util.AppUtil
 import com.typeup.util.LinkUtil
@@ -24,7 +22,10 @@ object SelectedAppActions {
         companion object : CompanionEnumWithText<Item>
     }
 
-    fun openApp(context: Context, appInfo: AppInfo) {
+    fun openApp(context: Context, appInfo: AppInfo, editText: EditText) {
+        if (AdvancedSettings.Item.AUTO_CLEAR_ON_APP_CLICK.getSavedBool())
+            editText.text?.clear()
+
         val name = ComponentName(
             appInfo.appId,
             appInfo.launcherActivity
@@ -38,13 +39,16 @@ object SelectedAppActions {
         AppUtil.openIntent(context, i)
     }
 
-    fun showAppOptions(context: Context, appInfo: AppInfo) {
+    fun showAppOptions(context: Context, appInfo: AppInfo, editText: EditText) {
         val list = Item.getTexts()
 
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(appInfo.appName)
             .setItems(list) { dialog, position ->
                 dialog.cancel()
+
+                if (AdvancedSettings.Item.AUTO_CLEAR_ON_APP_OPTION_CLICK.getSavedBool())
+                    editText.text?.clear()
 
                 when (Item.getItemWithText(list[position])) {
                     Item.INFO -> openAppInfo(context, appInfo.appId)

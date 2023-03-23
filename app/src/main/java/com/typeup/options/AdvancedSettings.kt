@@ -12,21 +12,32 @@ import kotlinx.serialization.json.Json
 object AdvancedSettings {
 
     @Serializable
-    private enum class Item(
+    enum class Item(
+        override val id: Int,
         override val text: String,
         override var bool: Boolean
-    ) : EnumWithText, EnumWithBool {
+    ) : EnumWithText, EnumWithBool, EnumWithId {
 
-        AUTO_CLEAR_ON_APP_CLICK("Auto clear search on app click", true),
-        AUTO_CLEAR_ON_APP_OPTION_CLICK("Auto clear search on app option click", true),
-        INCLUDE_APP_ID("Also search by application ID (package name)", false);
+        AUTO_CLEAR_ON_APP_CLICK(5, "Auto clear search on app click", true),
+        AUTO_CLEAR_ON_APP_OPTION_CLICK(6, "Auto clear search on app option click", true),
+        INCLUDE_APP_ID(7, "Also search by application ID (package name)", false);
 
-        companion object : CompanionEnumWithText<Item>, CompanionEnumWithBool<Item>
+        fun getSavedBool(): Boolean {
+            val items = getSavedOrDefault()
+            return items.firstOrNull { x ->
+                this.id == x.id
+            }?.bool ?: this.bool
+        }
+
+        companion object :
+            CompanionEnumWithText<Item>,
+            CompanionEnumWithBool<Item>,
+            CompanionEnumWithId<Item>
     }
 
 
     fun showDialog(context: Context) {
-        val items = getSavedOrDefault(Item.values())
+        val items = getSavedOrDefault()
 
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle("Advanced Settings")
@@ -47,15 +58,15 @@ object AdvancedSettings {
         SharedPref.edit().putString("advanced_settings", jsonString).apply()
     }
 
-    private fun getSavedOrDefault(default: Array<Item>): Array<Item> {
+    private fun getSavedOrDefault(): Array<Item> {
         val jsonString = SharedPref.get().getString("advanced_settings", "") ?: "";
         if (jsonString.isEmpty())
-            return default
+            return Item.values()
 
         try {
             return Json.decodeFromString(jsonString)
         } catch (e: IllegalArgumentException) {
-            return default
+            return Item.values()
         }
     }
 }
