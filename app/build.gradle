@@ -28,12 +28,16 @@ android {
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
             minifyEnabled false
+
+            manifestPlaceholders = [appName: "TypeUp Dev"]
         }
 
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            manifestPlaceholders = [appName: " "]
         }
 
         staging {
@@ -42,6 +46,8 @@ android {
             applicationIdSuffix ".stg"
             versionNameSuffix "-stg"
             signingConfig signingConfigs.debug
+
+            manifestPlaceholders = [appName: "TypeUp Stg"]
         }
 
         stagingTest {
@@ -50,6 +56,8 @@ android {
             applicationIdSuffix ".stg.test"
             versionNameSuffix "-stg-test"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-staging-test-rules.pro'
+
+            manifestPlaceholders = [appName: "TypeUp StgTest"]
         }
     }
 
