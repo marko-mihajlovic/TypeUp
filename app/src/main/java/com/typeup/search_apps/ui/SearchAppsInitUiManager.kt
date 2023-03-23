@@ -20,7 +20,7 @@ object SearchAppsInitUiManager {
         adapter: AppsListViewAdapter,
     ) {
 
-        ThemeSettings.applySavedTheme(context)
+        ThemeSettings.applySavedTheme()
         PolicyDialog.tryToShow(context, false)
 
         AppsListViewManager.init(

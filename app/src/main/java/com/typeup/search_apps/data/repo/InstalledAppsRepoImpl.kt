@@ -1,6 +1,5 @@
 package com.typeup.search_apps.data.repo
 
-import android.content.Context
 import com.typeup.options.main.MaxShownItems
 import com.typeup.search_apps.data.data_source.InstalledAppsDataSource
 import com.typeup.search_apps.data.model.AppInfo
@@ -14,7 +13,6 @@ import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 class InstalledAppsRepoImpl @Inject constructor(
-    private val context: Context,
     private val dataSource: InstalledAppsDataSource,
 ) : InstalledAppsRepo {
 
@@ -46,16 +44,16 @@ class InstalledAppsRepoImpl @Inject constructor(
     }
 
     override fun getMaxSize(): Int {
-        return MaxShownItems.getMaxItems(context)
+        return MaxShownItems.getMaxItems()
     }
 
     private fun saveCache(installedApps: List<AppInfo>) {
         val jsonString = Json.encodeToString(installedApps)
-        SharedPref.edit(context).putString("installed_apps", jsonString).apply()
+        SharedPref.edit().putString("installed_apps", jsonString).apply()
     }
 
     private fun getCachedApps(): List<AppInfo> {
-        val string = SharedPref.get(context).getString("installed_apps", "") ?: ""
+        val string = SharedPref.get().getString("installed_apps", "") ?: ""
 
         return try {
             Json.decodeFromString(string) ?: emptyList()

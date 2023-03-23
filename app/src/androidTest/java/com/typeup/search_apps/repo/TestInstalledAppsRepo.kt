@@ -22,13 +22,11 @@ class TestInstalledAppsRepo {
 
     @Test
     fun test_repo() = runBlocking {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-
         val fakeDataSource = FakeInstalledAppsDataSource()
-        val repo = InstalledAppsRepoImpl(context, fakeDataSource)
+        val repo = InstalledAppsRepoImpl(fakeDataSource)
 
         // Clear cache
-        SharedPref.edit(context).remove("installed_apps").commit()
+        SharedPref.edit().remove("installed_apps").commit()
 
         // Check empty cache is emitted
         assertThat(repo.get().firstOrNull()?.data, `is`(empty()))
@@ -44,7 +42,7 @@ class TestInstalledAppsRepo {
         assertThat(repo.get().firstOrNull()?.data, `is`(not(empty())))
 
         // Clear cache
-        SharedPref.edit(context).remove("installed_apps").commit()
+        SharedPref.edit().remove("installed_apps").commit()
 
         // Check memory cache is still available
         assertThat(repo.get().firstOrNull()?.data, `is`(not(empty())))
@@ -58,7 +56,7 @@ class TestInstalledAppsRepo {
         // Change cache with different data source
         val fakeList2 = FakeInstalledAppsDataSource2().get()
         val jsonString = Json.encodeToString(fakeList2)
-        SharedPref.edit(context).putString("installed_apps", jsonString).apply()
+        SharedPref.edit().putString("installed_apps", jsonString).apply()
 
         // Check cache still shows old data, because refresh is false by default
         val repoAppNameList1b = repo.get().firstOrNull()?.data?.map { it.appName }

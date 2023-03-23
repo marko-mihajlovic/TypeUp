@@ -11,8 +11,7 @@ import com.typeup.search_apps.SearchActivity
 object CustomTestWrappers {
 
     fun wrapSearchActivityTest(test: () -> Unit) {
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        SharedPref.edit(context).clear().commit()
+        SharedPref.edit().clear().commit()
 
         ActivityScenario.launch(SearchActivity::class.java).use {
             onView(withText("Accept")).perform(ViewActions.click())

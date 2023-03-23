@@ -2,17 +2,18 @@ package com.typeup.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.typeup.TypeUpApp
 
 object SharedPref {
 
     private const val prefKey = "appPref"
 
-    fun get(context: Context): SharedPreferences {
-        return context.getSharedPreferences(prefKey, Context.MODE_PRIVATE)
+    fun get(): SharedPreferences {
+        return TypeUpApp.appContext.getSharedPreferences(prefKey, Context.MODE_PRIVATE)
     }
 
-    fun edit(context: Context): SharedPreferences.Editor {
-        return get(context).edit()
+    fun edit(): SharedPreferences.Editor {
+        return get().edit()
     }
 
 }

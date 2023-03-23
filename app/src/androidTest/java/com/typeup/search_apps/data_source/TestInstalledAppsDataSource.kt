@@ -13,17 +13,13 @@ class TestInstalledAppsDataSource {
 
     @Test
     fun test_there_are_apps() {
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-
-        val list = InstalledAppsDataSourceImpl(appContext).get()
+        val list = InstalledAppsDataSourceImpl().get()
         assertThat(list, `is`(not(empty())))
     }
 
     @Test
     fun test_some_app_exists() {
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-
-        val list = InstalledAppsDataSourceImpl(appContext).get()
+        val list = InstalledAppsDataSourceImpl().get()
         assertThat(
             list.firstOrNull { x ->
                 x.appName == "Gmail"

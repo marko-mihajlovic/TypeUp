@@ -22,7 +22,7 @@ object MaxShownItems {
         numPicker.minValue = min
         numPicker.wrapSelectorWheel = false
 
-        numPicker.value = getMaxItems(context)
+        numPicker.value = getMaxItems()
 
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(R.string.numPickerTxt)
@@ -30,7 +30,7 @@ object MaxShownItems {
             .setPositiveButton(R.string.saveTxt) { dialog, _ ->
                 dialog.cancel()
 
-                setMaxItems(context, numPicker.value)
+                setMaxItems(numPicker.value)
                 onRefresh(false)
             }
             .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
@@ -39,12 +39,12 @@ object MaxShownItems {
             .show()
     }
 
-    private fun setMaxItems(context: Context, i: Int) {
-        SharedPref.edit(context).putInt(maxItemsKey, i).commit()
+    private fun setMaxItems(i: Int) {
+        SharedPref.edit().putInt(maxItemsKey, i).commit()
     }
 
-    fun getMaxItems(context: Context): Int {
-        return SharedPref.get(context).getInt(maxItemsKey, default)
+    fun getMaxItems(): Int {
+        return SharedPref.get().getInt(maxItemsKey, default)
     }
 
 }

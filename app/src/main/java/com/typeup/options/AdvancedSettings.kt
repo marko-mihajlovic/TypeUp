@@ -26,7 +26,7 @@ object AdvancedSettings {
 
 
     fun showDialog(context: Context) {
-        val items = getSavedOrDefault(context, Item.values())
+        val items = getSavedOrDefault(Item.values())
 
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle("Advanced Settings")
@@ -34,7 +34,7 @@ object AdvancedSettings {
                 items[position].bool = checked
             }
             .setPositiveButton(R.string.saveTxt) { dialog, _ ->
-                save(context, items)
+                save(items)
             }
             .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
                 dialog.cancel()
@@ -42,13 +42,13 @@ object AdvancedSettings {
             .show()
     }
 
-    private fun save(context: Context, items: Array<Item>) {
+    private fun save(items: Array<Item>) {
         val jsonString = Json.encodeToString(items)
-        SharedPref.edit(context).putString("advanced_settings", jsonString).apply()
+        SharedPref.edit().putString("advanced_settings", jsonString).apply()
     }
 
-    private fun getSavedOrDefault(context: Context, default: Array<Item>): Array<Item> {
-        val jsonString = SharedPref.get(context).getString("advanced_settings", "") ?: "";
+    private fun getSavedOrDefault(default: Array<Item>): Array<Item> {
+        val jsonString = SharedPref.get().getString("advanced_settings", "") ?: "";
         if (jsonString.isEmpty())
             return default
 

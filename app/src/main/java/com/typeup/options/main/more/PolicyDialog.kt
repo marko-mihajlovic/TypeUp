@@ -13,7 +13,7 @@ object PolicyDialog {
     private const val hasAcceptedPolicyKey = "hasAcceptedPrivacyPolicy-v2"
 
     fun tryToShow(context: Context, forceShow: Boolean) {
-        val appPref = SharedPref.get(context)
+        val appPref = SharedPref.get()
         val hasAcceptedPP = appPref.getBoolean(hasAcceptedPolicyKey, false)
 
         if (!hasAcceptedPP || forceShow)
