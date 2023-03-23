@@ -30,23 +30,14 @@ object SearchAppsInitUiManager {
             editText = binding.searchInput
         )
 
-        initRefreshLayout(
-            binding = binding,
-            viewModel = viewModel
-        )
+        initRefreshLayout(binding, viewModel)
 
         binding.searchInput.doAfterTextChanged { text: Editable? ->
             viewModel.searchApps(text?.toString()?.trim()?.lowercase() ?: "")
         }
 
         binding.optionsBtn.setOnClickListener {
-            MainOptions.showDialog(context) { refresh ->
-                refreshSearch(
-                    binding = binding,
-                    viewModel = viewModel,
-                    refresh = refresh
-                )
-            }
+            MainOptions.showDialog(context)
         }
 
     }
@@ -61,7 +52,7 @@ object SearchAppsInitUiManager {
         }
     }
 
-    private fun refreshSearch(
+    fun refreshSearch(
         binding: ActivitySearchBinding,
         viewModel: SearchAppsViewModel,
         refresh: Boolean = true,

@@ -6,6 +6,7 @@ import com.typeup.R
 import com.typeup.options.main.MaxShownItems
 import com.typeup.options.main.MoreOptions
 import com.typeup.options.main.ThemeSettings
+import com.typeup.search_apps.ui.OnRefreshEvent
 
 object MainOptions {
 
@@ -19,7 +20,7 @@ object MainOptions {
     }
 
 
-    fun showDialog(context: Context, onRefresh: (refresh: Boolean) -> Unit) {
+    fun showDialog(context: Context) {
         val list = Item.getTexts()
 
         AlertDialog.Builder(context, R.style.Dialog)
@@ -28,9 +29,12 @@ object MainOptions {
                 dialog.cancel()
 
                 when (Item.getItemWithText(list[position])) {
-                    Item.MAX_NUM -> MaxShownItems.showDialog(context, onRefresh)
+                    Item.MAX_NUM -> MaxShownItems.showDialog(context)
                     Item.THEME -> ThemeSettings.showDialog(context)
-                    Item.REFRESH -> onRefresh(true)
+                    Item.REFRESH -> {
+                        if (context is OnRefreshEvent)
+                            context.onRefresh(true)
+                    }
                     Item.MORE -> MoreOptions.showDialog(context)
                 }
             }
