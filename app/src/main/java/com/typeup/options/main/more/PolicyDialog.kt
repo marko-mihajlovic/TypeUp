@@ -25,14 +25,9 @@ object PolicyDialog {
             .setCancelable(hasAcceptedPP)
             .setTitle("Privacy Policy")
             .setMessage(R.string.privacyLongTxt)
-            .setPositiveButton(
-                if (hasAcceptedPP)
-                    R.string.ok
-                else
-                    R.string.accept,
-            ) { d, _ ->
+            .setPositiveButton(if (hasAcceptedPP) R.string.ok else R.string.accept) { dialog, _ ->
                 appPref.edit().putBoolean(hasAcceptedPolicyKey, true).apply()
-                d.dismiss()
+                dialog.dismiss()
             }
             .show()
             .also { x ->
