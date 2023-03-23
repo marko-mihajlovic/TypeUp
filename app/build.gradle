@@ -26,7 +26,7 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".dev"
-            versionNameSuffix "-debug"
+            versionNameSuffix "-dev"
             minifyEnabled false
         }
 
@@ -45,12 +45,10 @@ android {
         }
 
         stagingTest {
+            initWith staging
+
             applicationIdSuffix ".stg.test"
             versionNameSuffix "-stg-test"
-            signingConfig signingConfigs.debug
-
-            minifyEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-staging-test-rules.pro'
         }
     }
