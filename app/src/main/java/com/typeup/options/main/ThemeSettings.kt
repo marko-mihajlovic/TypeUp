@@ -32,7 +32,7 @@ object ThemeSettings {
 
     fun showDialog(context: Context) {
         val list = Theme.getTexts()
-        var selectedTheme = getSavedTheme()
+        var selectedTheme = getSaved()
         var selectedPos = list.indexOf(selectedTheme.text)
 
         AlertDialog.Builder(context, R.style.Dialog)
@@ -44,7 +44,7 @@ object ThemeSettings {
             .setPositiveButton(R.string.saveTxt) { dialog, _ ->
                 dialog.cancel()
 
-                rememberTheme(selectedTheme)
+                save(selectedTheme)
                 changeDeviceTheme(selectedTheme)
             }
             .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
@@ -54,7 +54,7 @@ object ThemeSettings {
     }
 
     fun applySavedTheme() {
-        changeDeviceTheme(getSavedTheme())
+        changeDeviceTheme(getSaved())
     }
 
     private fun changeDeviceTheme(theme: Theme) {
@@ -65,17 +65,15 @@ object ThemeSettings {
         }
     }
 
-    private fun rememberTheme(theme: Theme) {
+    private fun save(theme: Theme) {
         SharedPref.edit().putString(themeKey, theme.toString()).apply()
     }
 
-    private fun getSavedTheme(): Theme {
-        return Theme.valueOfWithDefault(getSavedThemeString(), Theme.SYSTEM)
-    }
-
-    private fun getSavedThemeString(): String {
-        return SharedPref.get().getString(themeKey, Theme.SYSTEM.toString())
+    private fun getSaved(): Theme {
+        val savedString = SharedPref.get().getString(themeKey, Theme.SYSTEM.toString())
             ?: Theme.SYSTEM.toString()
+
+        return Theme.valueOfWithDefault(savedString, Theme.SYSTEM)
     }
 
 }
