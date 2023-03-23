@@ -30,16 +30,19 @@ object ThemeSettings {
         }
     }
 
+    fun applySavedTheme() {
+        changeDeviceTheme(getSaved())
+    }
+
     fun showDialog(context: Context) {
         val list = Theme.getTexts()
         var selectedTheme = getSaved()
-        var selectedPos = list.indexOf(selectedTheme.text)
+        val initialSelectedThemePosition = list.indexOf(selectedTheme.text)
 
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(R.string.chooseThemeTitle)
-            .setSingleChoiceItems(list, selectedPos) { _, pos ->
+            .setSingleChoiceItems(list, initialSelectedThemePosition) { _, pos ->
                 selectedTheme = Theme.getItemWithText(list[pos])
-                selectedPos = pos
             }
             .setPositiveButton(R.string.saveTxt) { dialog, _ ->
                 dialog.cancel()
@@ -51,10 +54,6 @@ object ThemeSettings {
                 dialog.cancel()
             }
             .show()
-    }
-
-    fun applySavedTheme() {
-        changeDeviceTheme(getSaved())
     }
 
     private fun changeDeviceTheme(theme: Theme) {
