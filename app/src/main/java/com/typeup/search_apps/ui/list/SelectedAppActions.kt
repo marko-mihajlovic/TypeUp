@@ -23,8 +23,7 @@ object SelectedAppActions {
     }
 
     fun openApp(context: Context, appInfo: AppInfo, editText: EditText) {
-        if (AdvancedSettings.Item.AUTO_CLEAR_ON_APP_CLICK.getSavedBool())
-            editText.text?.clear()
+        editText.text?.clear()
 
         val name = ComponentName(
             appInfo.appId,
@@ -39,16 +38,13 @@ object SelectedAppActions {
         AppUtil.openIntent(context, i)
     }
 
-    fun showAppOptions(context: Context, appInfo: AppInfo, editText: EditText) {
+    fun showAppOptions(context: Context, appInfo: AppInfo) {
         val list = Item.getTexts()
 
         AlertDialog.Builder(context, R.style.Dialog)
             .setTitle(appInfo.appName)
             .setItems(list) { dialog, position ->
                 dialog.cancel()
-
-                if (AdvancedSettings.Item.AUTO_CLEAR_ON_APP_OPTION_CLICK.getSavedBool())
-                    editText.text?.clear()
 
                 when (Item.getItemWithText(list[position])) {
                     Item.INFO -> openAppInfo(context, appInfo.appId)

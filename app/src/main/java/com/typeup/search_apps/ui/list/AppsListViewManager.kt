@@ -20,7 +20,7 @@ object AppsListViewManager {
             val item = parent.getItemAtPosition(position)
             if (item is AppInfo)
                 if (item.appId == BuildConfig.APPLICATION_ID) {
-                    SelectedAppActions.showAppOptions(context, item, editText)
+                    SelectedAppActions.showAppOptions(context, item)
                 } else {
                     SelectedAppActions.openApp(context, item, editText)
                 }
@@ -29,7 +29,7 @@ object AppsListViewManager {
         listView.setOnItemLongClickListener { parent, _, position, _ ->
             val item = parent.getItemAtPosition(position)
             if (item is AppInfo)
-                SelectedAppActions.showAppOptions(context, item, editText)
+                SelectedAppActions.showAppOptions(context, item)
 
             return@setOnItemLongClickListener (true)
         }
