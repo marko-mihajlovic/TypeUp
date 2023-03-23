@@ -15,5 +15,9 @@ inline fun <reified T> CompanionEnumWithText<T>.getItemWithText(
 }
 
 inline fun <reified T> CompanionEnumWithText<T>.getTexts(): Array<String> where T : Enum<T>, T : EnumWithText {
-    return enumValues<T>().map { it.text }.toTypedArray()
+    return enumValues<T>().getTexts()
+}
+
+inline fun <reified T> Array<T>.getTexts(): Array<String> where T : Enum<T>, T : EnumWithText {
+    return this.map { it.text }.toTypedArray()
 }

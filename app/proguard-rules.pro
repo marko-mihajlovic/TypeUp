@@ -22,3 +22,5 @@
 
 # Used in order to keep <T>.getItemWithText() and <T>.getTexts()
 -keepclassmembers class * implements com.typeup.options.CompanionEnumWithText
+-keepclassmembers class * implements com.typeup.options.CompanionEnumWithBool
+-keepclassmembers class * implements com.typeup.options.CompanionEnumWithId

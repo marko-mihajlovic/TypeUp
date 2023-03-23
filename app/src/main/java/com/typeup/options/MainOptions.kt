@@ -12,6 +12,7 @@ object MainOptions {
     private enum class Item(override val text: String) : EnumWithText {
         MAX_NUM("Max items"),
         THEME("Theme"),
+        ADVANCED("Advanced settings"),
         REFRESH("Refresh"),
         MORE("More…");
 
@@ -32,6 +33,7 @@ object MainOptions {
                     Item.THEME -> ThemeSettings.showDialog(context)
                     Item.REFRESH -> onRefresh(true)
                     Item.MORE -> MoreOptions.showDialog(context)
+                    Item.ADVANCED -> AdvancedSettings.showDialog(context)
                 }
             }
             .setNegativeButton(R.string.cancelTxt) { dialog, _ ->
