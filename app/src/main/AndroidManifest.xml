@@ -14,7 +14,7 @@
         android:description="@string/app_name_long"
         android:icon="@mipmap/ic_launcher"
         android:label="${appName}"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/TypeUpTheme">
 
         <activity
