@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
 
     android:background="@color/normalBgColor"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <ImageView

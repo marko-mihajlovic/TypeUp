@@ -9,14 +9,14 @@ plugins {
 
 android {
     namespace 'com.typeup'
-    compileSdk 33
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.typeup"
         minSdk 23
-        targetSdk 33
-        versionCode 8
-        versionName "2.2"
+        targetSdk 36
+        versionCode 9
+        versionName "2.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,7 +37,7 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            manifestPlaceholders = [appName: " "]
+            manifestPlaceholders = [appName: "TypeUp"]
         }
 
         staging {
@@ -62,39 +62,40 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 
 }
 
 dependencies {
-    def coroutines_version = "1.6.4"
+    def coroutines_version = "1.11.0"
 
     // App dependencies
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.activity:activity-ktx:1.6.1'
+    implementation 'androidx.core:core-ktx:1.18.0'
+    implementation 'androidx.appcompat:appcompat:1.8.0'
+    implementation 'androidx.activity:activity-ktx:1.13.0'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation "androidx.startup:startup-runtime:1.1.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0'
+    implementation "androidx.startup:startup-runtime:1.2.0"
 
     //Hilt
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-android-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:2.60.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.60.1"
 
-    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.hamcrest:hamcrest:3.0'
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.7.0'
 }
 
 kapt {
